@@ -33,41 +33,58 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
   }, []);
 
   return (
-    <header className="header">
-      <div className="header-content">
-        <a href="/" className="logo">
-          <span className="logo-icon">📡</span>
-          中移互5G消息交流论坛
-        </a>
-
-        <div className="search-box">
-          <button className="search-button" aria-label="搜索">🔍</button>
-          <input
-            type="text"
-            placeholder="搜索帖子、用户、话题..."
-            autoComplete="off"
-            aria-label="搜索"
-          />
-        </div>
-
-        <div className="header-right">
-          <div className="datetime">{currentTime}</div>
+    <>
+      <header className="header">
+        <div className="header-content">
+          <a href="/" className="logo">
+            <span className="logo-icon">📡</span>
+            中移互5G消息交流论坛
+          </a>
           
-          <div className="auth-buttons">
-            {user ? (
-              <>
-                <span className="user-welcome">欢迎，{user.username}</span>
-                <button className="btn-logout" onClick={onLogout}>退出</button>
-              </>
-            ) : (
-              <>
-                <button className="btn-login" onClick={onLoginClick}>登录</button>
-                <button className="btn-register" onClick={onRegisterClick}>注册</button>
-              </>
-            )}
+          <div className="platform-motto">
+            致力于打造5G消息领域的信息发布枢纽、AI Agent交流中心、生态合作桥梁
+          </div>
+
+          <div className="search-box">
+            <button className="search-button" aria-label="搜索">🔍</button>
+            <input
+              type="text"
+              placeholder="搜索帖子、用户、话题..."
+              autoComplete="off"
+              aria-label="搜索"
+            />
+          </div>
+
+          <div className="header-right">
+            <div className="datetime">{currentTime}</div>
+            
+            <div className="auth-buttons">
+              {user ? (
+                <>
+                  <span className="user-welcome">欢迎，{user.username}</span>
+                  <button className="btn-logout" onClick={onLogout}>退出</button>
+                </>
+              ) : (
+                <>
+                  <button className="btn-login" onClick={onLoginClick}>登录</button>
+                  <button className="btn-register" onClick={onRegisterClick}>注册</button>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      
+      <style jsx>{`
+        .platform-motto {
+          font-size: 14px;
+          color: #666;
+          margin: 10px 0;
+          text-align: center;
+          font-weight: 500;
+          line-height: 1.4;
+        }
+      `}</style>
+    </>
   );
 }

@@ -31,84 +31,119 @@ export default function RightSidebar() {
   ];
 
   return (
-    <aside className="sidebar right-sidebar">
-      {/* 积分排行榜 */}
-      <div className="widget">
-        <h4 className="widget-title">
-          <span className="widget-icon">🏆</span>
-          积分排行榜
-        </h4>
-        <ul className="ranking-list">
-          {rankings.map((item) => (
-            <li key={item.rank}>
-              <div className={`rank-number ${item.rank <= 3 ? 'top3' : ''}`}>
-                {item.rank}
-              </div>
-              <div className="user-info">
-                <div className="user-name">{item.name}</div>
-                <div className="user-points">{item.points} 积分</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <a href="#" className="view-more">查看更多 →</a>
-      </div>
-
-      {/* 热门作品 */}
-      <div className="widget">
-        <h4 className="widget-title">
-          <span className="widget-icon">🎨</span>
-          热门作品
-        </h4>
-        <ul className="hot-items">
-          {hotWorks.map((work, index) => (
-            <li key={index}>
-              <a href="#" className="hot-item">
-                <div className="hot-item-title">{work.title}</div>
-                <div className="hot-item-stats">
-                  <span>👍 {work.likes}</span>
-                  <span>💬 {work.comments}</span>
-                  <span>👁️ {work.views}</span>
+    <>
+      <aside className="sidebar right-sidebar">
+        {/* 积分排行榜 */}
+        <div className="widget">
+          <h4 className="widget-title">
+            <span className="widget-icon">🏆</span>
+            积分排行榜
+          </h4>
+          <ul className="ranking-list">
+            {rankings.map((item) => (
+              <li key={item.rank}>
+                <div className={`rank-number ${item.rank <= 3 ? 'top3' : ''}`}>
+                  {item.rank}
                 </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <a href="#" className="view-more">查看更多 →</a>
-      </div>
-
-      {/* 热门小组 */}
-      <div className="widget">
-        <h4 className="widget-title">
-          <span className="widget-icon">👥</span>
-          热门小组
-        </h4>
-        <ul className="hot-items">
-          {hotGroups.map((group, index) => (
-            <li key={index}>
-              <a href="#" className="hot-group">
-                <div className="group-info">
-                  <span className="group-icon">{group.icon}</span>
-                  <span className="group-name">{group.name}</span>
+                <div className="user-info">
+                  <div className="user-name">{item.name}</div>
+                  <div className="user-points">{item.points} 积分</div>
                 </div>
-                <div className="group-stats">
-                  <span>👥 {group.members}</span>
-                  <span>📝 {group.posts}</span>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <a href="#" className="view-more">查看更多 →</a>
-      </div>
-
-      {/* 广告位 */}
-      <div className="widget widget-ad">
-        <div className="ad-content">
-          <p>📢 广告位招租</p>
-          <p className="ad-contact">联系邮箱：ad@5gforum.com</p>
+              </li>
+            ))}
+          </ul>
+          <a href="#" className="view-more">查看更多 →</a>
         </div>
-      </div>
-    </aside>
+
+        {/* 热门作品 */}
+        <div className="widget">
+          <h4 className="widget-title">
+            <span className="widget-icon">🎨</span>
+            热门作品
+          </h4>
+          <ul className="hot-items">
+            {hotWorks.map((work, index) => (
+              <li key={index}>
+                <a href="#" className="hot-item">
+                  <div className="hot-item-title">{work.title}</div>
+                  <div className="hot-item-stats">
+                    <span>👍 {work.likes}</span>
+                    <span>💬 {work.comments}</span>
+                    <span>👁️ {work.views}</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#" className="view-more">查看更多 →</a>
+        </div>
+
+        {/* 热门小组 */}
+        <div className="widget">
+          <h4 className="widget-title">
+            <span className="widget-icon">👥</span>
+            热门小组
+          </h4>
+          <ul className="hot-items">
+            {hotGroups.map((group, index) => (
+              <li key={index}>
+                <a href="#" className="hot-group">
+                  <div className="group-info">
+                    <span className="group-icon">{group.icon}</span>
+                    <span className="group-name">{group.name}</span>
+                  </div>
+                  <div className="group-stats">
+                    <span>👥 {group.members}</span>
+                    <span>📝 {group.posts}</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href="#" className="view-more">查看更多 →</a>
+        </div>
+
+        {/* 微信公众号 */}
+        <div className="widget widget-wechat">
+          <div className="wechat-content">
+            <div className="wechat-logo">💬</div>
+            <h4 className="wechat-name">新5G消息</h4>
+            <p className="wechat-desc">关注获取最新5G消息资讯</p>
+          </div>
+        </div>
+      </aside>
+      
+      <style jsx>{`
+        .widget-wechat {
+          background: linear-gradient(135deg, #07C160 0%, #00A86B 100%);
+          color: white;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        
+        .wechat-content {
+          padding: 20px;
+          text-align: center;
+        }
+        
+        .wechat-logo {
+          font-size: 48px;
+          margin-bottom: 10px;
+        }
+        
+        .wechat-name {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 5px;
+          margin-top: 0;
+        }
+        
+        .wechat-desc {
+          font-size: 14px;
+          opacity: 0.9;
+          margin: 0;
+        }
+      `}</style>
+    </>
   );
 }

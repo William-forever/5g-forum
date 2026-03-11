@@ -4,7 +4,7 @@
  * ========================================
  */
 
-import { postsDB, commentsDB } from '../../../lib/supabase';
+const { postsDB, commentsDB } = require('../../../lib/supabase');
 
 export default async function handler(req, res) {
   try {

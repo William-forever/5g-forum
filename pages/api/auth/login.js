@@ -4,8 +4,8 @@
  * ========================================
  */
 
-import { usersDB } from '../../../lib/supabase';
-import { verifyPassword, generateToken } from '../../../lib/auth';
+const { usersDB } = require('../../../lib/supabase');
+const { verifyPassword, generateToken } = require('../../../lib/auth');
 
 export default async function handler(req, res) {
   try {

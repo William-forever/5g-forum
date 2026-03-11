@@ -4,8 +4,8 @@
  * ========================================
  */
 
-import { usersDB } from '../../../lib/supabase';
-import { hashPassword } from '../../../lib/auth';
+const { usersDB } = require('../../../lib/supabase');
+const { hashPassword } = require('../../../lib/auth');
 
 export default async function handler(req, res) {
   try {

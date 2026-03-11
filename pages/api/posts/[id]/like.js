@@ -4,8 +4,8 @@
  * ========================================
  */
 
-import { postsDB } from '../../../../lib/supabase';
-import { verifyToken, getTokenFromHeader } from '../../../../lib/auth';
+const { postsDB } = require('../../../../lib/supabase');
+const { verifyToken, getTokenFromHeader } = require('../../../../lib/auth');
 
 export default async function handler(req, res) {
   try {
