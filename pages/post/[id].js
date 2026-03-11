@@ -38,10 +38,16 @@ export default function PostDetail() {
 
   // 检查登录状态
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    if (token && userData) {
-      setUser(JSON.parse(userData));
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('user');
+      if (token && userData) {
+        try {
+          setUser(JSON.parse(userData));
+        } catch (e) {
+          console.error('解析用户数据失败:', e);
+        }
+      }
     }
   }, []);
 
@@ -113,6 +119,32 @@ export default function PostDetail() {
       }
     } catch (error) {
       console.error('点赞失败:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm('确定要删除这个帖子吗？此操作不可恢复。')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('删除成功');
+        router.push('/');
+      } else {
+        alert(data.message || '删除失败');
+      }
+    } catch (error) {
+      console.error('删除失败:', error);
+      alert('删除失败，请稍后重试');
     }
   };
 
@@ -321,6 +353,11 @@ export default function PostDetail() {
               <button className="action-btn share-btn">
                 📤 分享
               </button>
+              {user && post && user.username === post.author && (
+                <button className="action-btn delete-btn" onClick={handleDelete}>
+                  🗑️ 删除
+                </button>
+              )}
             </div>
 
             {/* 评论区 */}
