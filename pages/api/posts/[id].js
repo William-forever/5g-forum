@@ -40,13 +40,15 @@ async function getPost(req, res, id) {
     await postsDB.incrementViews(id);
 
     // 获取评论
-    const comments = await commentsDB.getByPostId(id);
+    const comments = await commentsDB.getByPostId(id) || [];
 
     res.status(200).json({
       success: true,
       post: {
         ...post,
-        views: (post.views || 0) + 1
+        views: (post.views || 0) + 1,
+        likes: post.likes || 0,
+        comments: post.comments || 0
       },
       comments
     });

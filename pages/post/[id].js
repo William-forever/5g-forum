@@ -47,16 +47,24 @@ export default function PostDetail() {
     try {
       setLoading(true);
       const response = await fetch(`/api/posts/${id}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
-      if (data.success) {
+      
+      if (data && data.success && data.post) {
         setPost(data.post);
-        setComments(data.comments || []);
+        setComments(Array.isArray(data.comments) ? data.comments : []);
       } else {
         alert('帖子不存在或已被删除');
         router.push('/');
       }
     } catch (error) {
       console.error('获取帖子失败:', error);
+      alert('获取帖子失败，请稍后重试');
+      router.push('/');
     } finally {
       setLoading(false);
     }

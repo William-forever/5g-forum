@@ -30,7 +30,7 @@ export default async function handler(req, res) {
  */
 async function getComments(req, res, postId) {
   try {
-    const comments = await commentsDB.getByPostId(postId);
+    const comments = await commentsDB.getByPostId(postId) || [];
 
     res.status(200).json({
       success: true,
