@@ -1,9 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/api/auth/login": "pages/api/auth/login.js",
-  "/_error": "pages/_error.js",
-  "/api/posts": "pages/api/posts.js",
-  "/api/auth/register": "pages/api/auth/register.js",
-  "/": "pages/index.js",
-  "/_document": "pages/_document.js"
-}
+{"/_app":"pages/_app.js","/api/auth/login":"pages/api/auth/login.js","/_error":"pages/_error.js","/api/posts":"pages/api/posts.js","/api/auth/register":"pages/api/auth/register.js","/":"pages/index.html","/_document":"pages/_document.js","/404":"pages/404.html"}

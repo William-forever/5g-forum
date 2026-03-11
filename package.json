@@ -8,10 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
     "next": "^14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2"
+    "react-dom": "^18.2.0"
   }
 }

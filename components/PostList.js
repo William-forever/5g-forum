@@ -7,7 +7,7 @@
  * @version 1.0.0
  */
 
-export default function PostList({ posts, user, onPostClick }) {
+export default function PostList({ posts, user, category, onPostClick }) {
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -47,7 +47,7 @@ export default function PostList({ posts, user, onPostClick }) {
   return (
     <main className="main-content">
       <div className="main-content-header">
-        <h2>最新帖子</h2>
+        <h2>{category === '首页' ? '全部帖子' : category}</h2>
         {user && (
           <button className="post-btn" onClick={onPostClick}>
             发布新帖

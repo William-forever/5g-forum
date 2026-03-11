@@ -19,6 +19,8 @@ import PostModal from '../components/PostModal';
 export default function Home() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('首页');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
   const [authTab, setAuthTab] = useState('login');
@@ -39,10 +41,22 @@ export default function Home() {
       const response = await fetch('/api/posts');
       const data = await response.json();
       if (data.success) {
+        setAllPosts(data.posts || []);
         setPosts(data.posts || []);
       }
     } catch (error) {
       console.error('获取文章失败:', error);
+    }
+  };
+
+  // 处理板块切换
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
+    if (category === '首页') {
+      setPosts(allPosts);
+    } else {
+      const filtered = allPosts.filter(post => post.category === category);
+      setPosts(filtered);
     }
   };
 
@@ -82,11 +96,15 @@ export default function Home() {
       />
 
       <main className="main-container">
-        <Sidebar />
+        <Sidebar 
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
         
         <PostList 
           posts={posts}
           user={user}
+          category={activeCategory}
           onPostClick={() => setShowPostModal(true)}
         />
         

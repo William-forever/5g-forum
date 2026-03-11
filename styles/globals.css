@@ -234,10 +234,20 @@ button {
   transition: all 0.3s;
 }
 
-.forum-section a:hover {
+.forum-section a:hover,
+.forum-section a.active {
   background: #e7f1ff;
   color: #007bff;
   transform: translateX(5px);
+}
+
+.forum-section a.active {
+  background: #007bff;
+  color: white;
+}
+
+.forum-section a.active .count {
+  color: rgba(255,255,255,0.8);
 }
 
 .forum-section a .icon {

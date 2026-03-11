@@ -4,11 +4,12 @@
  * ========================================
  * @description 论坛板块导航
  * @date 2026-03-10
- * @version 1.0.0
+ * @version 1.1.0
  */
 
-export default function Sidebar() {
+export default function Sidebar({ activeCategory, onCategoryChange }) {
   const sections = [
+    { name: '首页', icon: '🏠', count: '全部' },
     { name: '行业动态', icon: '📰', count: '100+' },
     { name: '招投标信息', icon: '📋', count: '50+' },
     { name: '产品培训', icon: '📚', count: '80+' },
@@ -26,7 +27,15 @@ export default function Sidebar() {
       <ul className="forum-section">
         {sections.map((section) => (
           <li key={section.name}>
-            <a href="#" title={section.name}>
+            <a 
+              href="#" 
+              title={section.name}
+              className={activeCategory === section.name ? 'active' : ''}
+              onClick={(e) => {
+                e.preventDefault();
+                onCategoryChange(section.name);
+              }}
+            >
               <span className="icon">{section.icon}</span>
               <span className="name">{section.name}</span>
               <span className="count">{section.count}</span>
