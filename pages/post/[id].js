@@ -91,7 +91,7 @@ export default function PostDetail() {
         }
       });
       const data = await response.json();
-      if (data.success) {
+      if (data.success && post) {
         setPost({ ...post, likes: data.likes });
       }
     } catch (error) {
@@ -126,7 +126,9 @@ export default function PostDetail() {
       if (data.success) {
         setComments([data.comment, ...comments]);
         setCommentContent('');
-        setPost({ ...post, comments: post.comments + 1 });
+        if (post) {
+          setPost({ ...post, comments: (post.comments || 0) + 1 });
+        }
       }
     } catch (error) {
       console.error('评论失败:', error);
@@ -134,7 +136,9 @@ export default function PostDetail() {
   };
 
   const formatTime = (dateString) => {
+    if (!dateString) return '未知时间';
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '未知时间';
     return date.toLocaleString('zh-CN', {
       year: 'numeric',
       month: '2-digit',
