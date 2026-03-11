@@ -26,6 +26,15 @@ export default function PostDetail() {
   const [authTab, setAuthTab] = useState('login');
   const [commentContent, setCommentContent] = useState('');
   const [comments, setComments] = useState([]);
+  
+  // 处理板块切换
+  const handleCategoryChange = (category) => {
+    if (category === '首页') {
+      router.push('/');
+    } else {
+      router.push(`/?category=${encodeURIComponent(category)}`);
+    }
+  };
 
   // 检查登录状态
   useEffect(() => {
@@ -169,6 +178,40 @@ export default function PostDetail() {
     };
     return colors[category] || '#6c757d';
   };
+  
+  // 简单的Markdown解析函数
+  const renderMarkdown = (text) => {
+    if (!text) return '';
+    
+    // 替换标题
+    text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    
+    // 替换粗体
+    text = text.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+    
+    // 替换斜体
+    text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+    
+    // 替换链接
+    text = text.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    
+    // 替换代码块
+    text = text.replace(/```(.*?)```/gims, '<pre><code>$1</code></pre>');
+    
+    // 替换行内代码
+    text = text.replace(/`(.*?)`/gim, '<code>$1</code>');
+    
+    // 替换列表
+    text = text.replace(/^\s*\- (.*$)/gim, '<li>$1</li>');
+    text = text.replace(/(<li>.*?<\/li>)/gims, '<ul>$1</ul>');
+    
+    // 替换段落
+    text = text.replace(/^(?!<[h1-6ulli])(.*$)/gim, '<p>$1</p>');
+    
+    return text;
+  };
 
   if (loading) {
     return (
@@ -227,7 +270,10 @@ export default function PostDetail() {
       />
 
       <main className="main-container">
-        <Sidebar />
+        <Sidebar 
+          activeCategory={post?.category || ''} 
+          onCategoryChange={handleCategoryChange} 
+        />
         
         <div className="main-content">
           {/* 帖子头部 */}
@@ -255,9 +301,86 @@ export default function PostDetail() {
           </div>
 
           {/* 帖子内容 */}
-          <div className="post-detail-content">
-            {post.content}
-          </div>
+          <div 
+            className="post-detail-content"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+          />
+          
+          <style jsx>{`
+            .post-detail-content h1 {
+              font-size: 24px;
+              font-weight: 600;
+              margin: 20px 0 10px 0;
+              color: #333;
+            }
+            
+            .post-detail-content h2 {
+              font-size: 20px;
+              font-weight: 600;
+              margin: 18px 0 8px 0;
+              color: #333;
+            }
+            
+            .post-detail-content h3 {
+              font-size: 16px;
+              font-weight: 600;
+              margin: 16px 0 6px 0;
+              color: #333;
+            }
+            
+            .post-detail-content p {
+              margin: 10px 0;
+              line-height: 1.8;
+            }
+            
+            .post-detail-content strong {
+              font-weight: 600;
+            }
+            
+            .post-detail-content em {
+              font-style: italic;
+            }
+            
+            .post-detail-content a {
+              color: #007bff;
+              text-decoration: none;
+            }
+            
+            .post-detail-content a:hover {
+              text-decoration: underline;
+            }
+            
+            .post-detail-content ul {
+              margin: 10px 0;
+              padding-left: 20px;
+            }
+            
+            .post-detail-content li {
+              margin: 5px 0;
+            }
+            
+            .post-detail-content pre {
+              background: #f5f5f5;
+              padding: 12px;
+              border-radius: 4px;
+              overflow-x: auto;
+              margin: 10px 0;
+            }
+            
+            .post-detail-content code {
+              background: #f5f5f5;
+              padding: 2px 6px;
+              border-radius: 3px;
+              font-family: 'Courier New', Courier, monospace;
+              font-size: 14px;
+            }
+            
+            .post-detail-content pre code {
+              background: none;
+              padding: 0;
+              border-radius: 0;
+            }
+          `}</style>
 
           {/* 操作按钮 */}
           <div className="post-actions-bar">
