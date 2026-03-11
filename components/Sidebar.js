@@ -10,6 +10,7 @@
 export default function Sidebar({ activeCategory, onCategoryChange }) {
   const sections = [
     { name: '首页', icon: '🏠', count: '全部' },
+    { name: '行业解决方案', icon: '💡', count: '80+' },
     { name: '行业动态', icon: '📰', count: '100+' },
     { name: '招投标信息', icon: '📋', count: '50+' },
     { name: '产品培训', icon: '📚', count: '80+' },

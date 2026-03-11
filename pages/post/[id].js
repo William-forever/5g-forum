@@ -167,6 +167,7 @@ export default function PostDetail() {
 
   const getCategoryColor = (category) => {
     const colors = {
+      '行业解决方案': '#9c27b0',
       '行业动态': '#007bff',
       '招投标信息': '#28a745',
       '产品培训': '#ffc107',

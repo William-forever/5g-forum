@@ -32,6 +32,7 @@ export default function PostList({ posts, user, category, onPostClick }) {
 
   const getCategoryColor = (category) => {
     const colors = {
+      '行业解决方案': '#9c27b0',
       '行业动态': '#007bff',
       '招投标信息': '#28a745',
       '产品培训': '#ffc107',
@@ -61,9 +62,19 @@ export default function PostList({ posts, user, category, onPostClick }) {
             <p>暂无帖子，快来发布第一条吧！</p>
           </div>
         ) : (
-          posts.map((post) => (
+          // 先排序：置顶帖子在前，然后按创建时间倒序
+          [...posts].sort((a, b) => {
+            if (a.is_top && !b.is_top) return -1;
+            if (!a.is_top && b.is_top) return 1;
+            return new Date(b.created_at) - new Date(a.created_at);
+          }).map((post) => (
             <div key={post.id} className="post-item" data-post-id={post.id}>
               <div className="post-title">
+                {post.is_top && (
+                  <span className="top-tag" style={{ backgroundColor: '#dc3545', color: 'white', marginRight: '8px' }}>
+                    置顶
+                  </span>
+                )}
                 <span 
                   className="tag" 
                   style={{ backgroundColor: `${getCategoryColor(post.category)}20`, color: getCategoryColor(post.category) }}
