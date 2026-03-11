@@ -50,7 +50,7 @@ export default function AuthModal({ initialTab = 'login', onClose, onLoginSucces
 
       if (data.success) {
         showMessage('登录成功！', 'success');
-        onLoginSuccess(data.data, data.token);
+        onLoginSuccess(data.user, data.token);
       } else {
         showMessage(data.message, 'error');
       }

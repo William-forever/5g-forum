@@ -45,11 +45,23 @@ export default function Home() {
   // 获取文章列表
   const fetchPosts = async () => {
     try {
+      console.log('开始获取帖子列表...');
       const response = await fetch('/api/posts');
+      console.log('API响应状态:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('API返回数据:', data);
+      
       if (data.success) {
+        console.log('帖子数据:', data.posts);
         setAllPosts(data.posts || []);
         setPosts(data.posts || []);
+      } else {
+        console.error('获取帖子失败:', data.message);
       }
     } catch (error) {
       console.error('获取文章失败:', error);
