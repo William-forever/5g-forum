@@ -223,7 +223,7 @@ export default function PostDetail() {
           onLogout={handleLogout}
         />
         <main className="main-container">
-          <Sidebar />
+          <Sidebar onCategoryChange={handleCategoryChange} />
           <div className="main-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
             <p>加载中...</p>
           </div>
@@ -243,7 +243,7 @@ export default function PostDetail() {
           onLogout={handleLogout}
         />
         <main className="main-container">
-          <Sidebar />
+          <Sidebar onCategoryChange={handleCategoryChange} />
           <div className="main-content" style={{ textAlign: 'center', padding: '50px' }}>
             <h2>帖子不存在</h2>
             <p>该帖子可能已被删除或不存在</p>
@@ -306,81 +306,7 @@ export default function PostDetail() {
             dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
           />
           
-          <style jsx>{`
-            .post-detail-content h1 {
-              font-size: 24px;
-              font-weight: 600;
-              margin: 20px 0 10px 0;
-              color: #333;
-            }
-            
-            .post-detail-content h2 {
-              font-size: 20px;
-              font-weight: 600;
-              margin: 18px 0 8px 0;
-              color: #333;
-            }
-            
-            .post-detail-content h3 {
-              font-size: 16px;
-              font-weight: 600;
-              margin: 16px 0 6px 0;
-              color: #333;
-            }
-            
-            .post-detail-content p {
-              margin: 10px 0;
-              line-height: 1.8;
-            }
-            
-            .post-detail-content strong {
-              font-weight: 600;
-            }
-            
-            .post-detail-content em {
-              font-style: italic;
-            }
-            
-            .post-detail-content a {
-              color: #007bff;
-              text-decoration: none;
-            }
-            
-            .post-detail-content a:hover {
-              text-decoration: underline;
-            }
-            
-            .post-detail-content ul {
-              margin: 10px 0;
-              padding-left: 20px;
-            }
-            
-            .post-detail-content li {
-              margin: 5px 0;
-            }
-            
-            .post-detail-content pre {
-              background: #f5f5f5;
-              padding: 12px;
-              border-radius: 4px;
-              overflow-x: auto;
-              margin: 10px 0;
-            }
-            
-            .post-detail-content code {
-              background: #f5f5f5;
-              padding: 2px 6px;
-              border-radius: 3px;
-              font-family: 'Courier New', Courier, monospace;
-              font-size: 14px;
-            }
-            
-            .post-detail-content pre code {
-              background: none;
-              padding: 0;
-              border-radius: 0;
-            }
-          `}</style>
+
 
           {/* 操作按钮 */}
           <div className="post-actions-bar">
@@ -483,6 +409,80 @@ export default function PostDetail() {
           font-size: 16px;
           color: #333;
           white-space: pre-wrap;
+        }
+        
+        .post-detail-content h1 {
+          font-size: 24px;
+          font-weight: 600;
+          margin: 20px 0 10px 0;
+          color: #333;
+        }
+        
+        .post-detail-content h2 {
+          font-size: 20px;
+          font-weight: 600;
+          margin: 18px 0 8px 0;
+          color: #333;
+        }
+        
+        .post-detail-content h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 16px 0 6px 0;
+          color: #333;
+        }
+        
+        .post-detail-content p {
+          margin: 10px 0;
+          line-height: 1.8;
+        }
+        
+        .post-detail-content strong {
+          font-weight: 600;
+        }
+        
+        .post-detail-content em {
+          font-style: italic;
+        }
+        
+        .post-detail-content a {
+          color: #007bff;
+          text-decoration: none;
+        }
+        
+        .post-detail-content a:hover {
+          text-decoration: underline;
+        }
+        
+        .post-detail-content ul {
+          margin: 10px 0;
+          padding-left: 20px;
+        }
+        
+        .post-detail-content li {
+          margin: 5px 0;
+        }
+        
+        .post-detail-content pre {
+          background: #f5f5f5;
+          padding: 12px;
+          border-radius: 4px;
+          overflow-x: auto;
+          margin: 10px 0;
+        }
+        
+        .post-detail-content code {
+          background: #f5f5f5;
+          padding: 2px 6px;
+          border-radius: 3px;
+          font-family: 'Courier New', Courier, monospace;
+          font-size: 14px;
+        }
+        
+        .post-detail-content pre code {
+          background: none;
+          padding: 0;
+          border-radius: 0;
         }
         
         .post-actions-bar {
