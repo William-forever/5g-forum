@@ -2,7 +2,7 @@
 
 ## 📚 概述
 
-本文档详细说明了5G消息交流论坛的前后端API接口规范。
+本文档详细说明了新消息交流论坛的前后端API接口规范。
 
 ## 🔗 基础信息
 
@@ -206,7 +206,7 @@ Authorization: Bearer {token}
     "list": [
       {
         "id": 1,
-        "title": "5G消息在金融行业的应用实践",
+        "title": "新消息在金融行业的应用实践",
         "content": "帖子内容...",
         "section_id": 1,
         "section_name": "行业动态",
@@ -240,7 +240,7 @@ Authorization: Bearer {token}
   "message": "success",
   "data": {
     "id": 1,
-    "title": "5G消息在金融行业的应用实践",
+    "title": "新消息在金融行业的应用实践",
     "content": "帖子内容...",
     "section_id": 1,
     "user_id": 1,
@@ -278,7 +278,7 @@ Authorization: Bearer {token}
   "section_id": 1,
   "title": "帖子标题",
   "content": "帖子内容",
-  "tags": "5G消息,金融行业"
+  "tags": "新消息,金融行业"
 }
 ```
 
@@ -506,7 +506,7 @@ Authorization: Bearer {token}
       "id": 1,
       "name": "行业动态",
       "icon": "📰",
-      "description": "5G消息行业最新动态和新闻资讯",
+      "description": "新消息行业最新动态和新闻资讯",
       "parent_id": 0,
       "post_count": 100
     }
@@ -754,4 +754,4 @@ Authorization: Bearer {token}
 
 ## © 版权信息
 
-Copyright © 2026 中移互5G消息交流论坛. All rights reserved.
+Copyright © 2026 中移互新消息交流论坛. All rights reserved.

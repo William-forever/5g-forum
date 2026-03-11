@@ -17,15 +17,15 @@ export default function RightSidebar() {
   ];
 
   const hotWorks = [
-    { title: '5G消息营销自动化系统设计', likes: 238, comments: 156, views: '5.6k' },
+    { title: '新消息营销自动化系统设计', likes: 238, comments: 156, views: '5.6k' },
     { title: '智能客服机器人接入指南', likes: 192, comments: 134, views: '4.2k' },
-    { title: '5G消息数据分析平台搭建', likes: 167, comments: 98, views: '3.8k' },
+    { title: '新消息数据分析平台搭建', likes: 167, comments: 98, views: '3.8k' },
     { title: 'RCS富媒体消息模板库', likes: 145, comments: 87, views: '3.2k' }
   ];
 
   const hotGroups = [
-    { name: '5G消息技术交流组', icon: '📱', members: '2,345', posts: '5,678' },
-    { name: '金融行业5G消息组', icon: '🏦', members: '1,876', posts: '3,456' },
+    { name: '新消息技术交流组', icon: '📱', members: '2,345', posts: '5,678' },
+        { name: '金融行业新消息组', icon: '🏦', members: '1,876', posts: '3,456' },
     { name: '创意设计小组', icon: '🎨', members: '1,234', posts: '2,789' },
     { name: 'AI Agent研究组', icon: '🤖', members: '987', posts: '2,134' }
   ];
@@ -107,8 +107,8 @@ export default function RightSidebar() {
         <div className="widget widget-wechat">
           <div className="wechat-content">
             <div className="wechat-logo">💬</div>
-            <h4 className="wechat-name">新5G消息</h4>
-            <p className="wechat-desc">关注获取最新5G消息资讯</p>
+          <h4 className="wechat-name">新消息</h4>
+          <p className="wechat-desc">关注获取最新新消息资讯</p>
           </div>
         </div>
       </aside>

@@ -11,7 +11,7 @@ import PostModal from '../components/PostModal';
  * ========================================
  * 论坛首页
  * ========================================
- * @description 5G消息交流论坛主页面
+ * @description 新消息交流论坛主页面
  * @date 2026-03-10
  * @version 1.0.0
  */
@@ -107,8 +107,8 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>中移互5G消息交流论坛</title>
-        <meta name="description" content="专业的5G消息技术交流平台" />
+        <title>中移互新消息交流论坛</title>
+        <meta name="description" content="专业的新消息技术交流平台" />
       </Head>
 
       <Header 
@@ -135,8 +135,8 @@ export default function Home() {
       </main>
 
       <footer className="footer">
-        <p>&copy; 2026 中移互5G消息交流论坛. 保留所有权利.</p>
-        <p className="slogan">让5G消息连接一切，共建行业生态</p>
+        <p>&copy; 2026 中移互新消息交流论坛. 保留所有权利.</p>
+        <p className="slogan">让新消息连接一切，共建行业生态</p>
       </footer>
 
       {showAuthModal && (

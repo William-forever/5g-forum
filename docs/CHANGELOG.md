@@ -1,6 +1,6 @@
 # 更新日志 (CHANGELOG)
 
-本文档记录了5G消息交流论坛的所有重要变更。
+本文档记录了新消息交流论坛的所有重要变更。
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)，
 版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
@@ -127,4 +127,4 @@
 
 ## 许可证
 
-Copyright © 2026 中移互5G消息交流论坛. All rights reserved.
+Copyright © 2026 中移互新消息交流论坛. All rights reserved.

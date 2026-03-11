@@ -37,13 +37,13 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
       <header className="header">
         <div className="header-content">
           <a href="/" className="logo">
-            <span className="logo-icon">📡</span>
-            中移互5G消息交流论坛
-          </a>
-          
-          <div className="platform-motto">
-            致力于打造5G消息领域的信息发布枢纽、AI Agent交流中心、生态合作桥梁
-          </div>
+          <span className="logo-icon">📡</span>
+          中移互新消息交流论坛
+        </a>
+        
+        <div className="platform-motto">
+          致力于打造新消息领域的信息发布枢纽、AI Agent交流中心、生态合作桥梁
+        </div>
 
           <div className="search-box">
             <button className="search-button" aria-label="搜索">🔍</button>

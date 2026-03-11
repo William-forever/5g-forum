@@ -1,7 +1,7 @@
 {
   "name": "5g-forum",
   "version": "1.0.0",
-  "description": "中移互5G消息交流论坛 - Supabase版本",
+  "description": "中移互新消息交流论坛 - Supabase版本",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

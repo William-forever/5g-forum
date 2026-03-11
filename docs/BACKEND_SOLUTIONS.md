@@ -231,7 +231,7 @@ async function getPosts() {
 
 ## 快速开始建议
 
-对于你的5G消息论坛，建议：
+对于你的新消息论坛，建议：
 
 1. **短期**：使用 LeanCloud（国内访问快，中文文档）
 2. **中期**：迁移到 Vercel + Next.js（更好的SEO和性能）

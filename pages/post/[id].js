@@ -260,7 +260,7 @@ export default function PostDetail() {
     <>
       <div className="container">
         <Head>
-          <title>{post.title} - 中移互5G消息交流论坛</title>
+          <title>{post.title} - 中移互新消息交流论坛</title>
           <meta name="description" content={post.content.substring(0, 100)} />
         </Head>
 
@@ -367,9 +367,9 @@ export default function PostDetail() {
         </main>
 
         <footer className="footer">
-          <p>&copy; 2026 中移互5G消息交流论坛. 保留所有权利.</p>
-          <p className="slogan">让5G消息连接一切，共建行业生态</p>
-        </footer>
+        <p>&copy; 2026 中移互新消息交流论坛. 保留所有权利.</p>
+        <p className="slogan">让新消息连接一切，共建行业生态</p>
+      </footer>
 
         {showAuthModal && (
           <AuthModal 

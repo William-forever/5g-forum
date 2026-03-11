@@ -676,8 +676,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>中移互5G消息交流论坛</title>
-        <meta name="description" content="5G消息技术交流平台" />
+        <title>中移互新消息交流论坛</title>
+        <meta name="description" content="新消息技术交流平台" />
       </Head>
 
       <Header 
@@ -1352,7 +1352,7 @@ export default function Admin() {
   return (
     <div>
       <Head>
-        <title>后台管理 - 5G消息交流论坛</title>
+        <title>后台管理 - 新消息交流论坛</title>
       </Head>
 
       <div className="admin-container">
