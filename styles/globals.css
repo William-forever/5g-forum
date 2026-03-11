@@ -1,0 +1,815 @@
+/**
+ * ========================================
+ * 全局样式文件
+ * ========================================
+ * @description 5G消息交流论坛全局样式
+ * @date 2026-03-10
+ * @version 1.0.0
+ */
+
+/* ========================================
+   CSS Reset
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   基础样式
+   ======================================== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f0f2f5;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ========================================
+   布局容器
+   ======================================== */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 2rem 2rem;
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  gap: 20px;
+  min-height: calc(100vh - 120px);
+  width: 100%;
+}
+
+/* ========================================
+   头部导航
+   ======================================== */
+.header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  padding: 0.8rem 0;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.6rem 1.2rem 0.6rem 2.5rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+}
+
+.search-box input:focus {
+  box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+.search-button {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.datetime {
+  color: white;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-login, .btn-register, .btn-logout {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-login {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn-login:hover {
+  background: white;
+  color: #007bff;
+}
+
+.btn-register {
+  background: white;
+  color: #007bff;
+  border: 1px solid white;
+}
+
+.btn-register:hover {
+  background: #f0f0f0;
+}
+
+.btn-logout {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-logout:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.user-welcome {
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   侧边栏
+   ======================================== */
+.sidebar {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 90px;
+}
+
+.sidebar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #007bff;
+}
+
+.forum-section li {
+  margin-bottom: 0.5rem;
+}
+
+.forum-section a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #555;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.forum-section a:hover {
+  background: #e7f1ff;
+  color: #007bff;
+  transform: translateX(5px);
+}
+
+.forum-section a .icon {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.forum-section a .name {
+  flex: 1;
+}
+
+.forum-section a .count {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.sidebar-stats {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: #6c757d;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* ========================================
+   主内容区域
+   ======================================== */
+.main-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+}
+
+.main-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.main-content-header h2 {
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.post-btn {
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.post-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.post-item {
+  padding: 1.2rem;
+  border-bottom: 1px solid #e9ecef;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.post-item:hover {
+  background: #f8f9fa;
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.post-title a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.post-title a:hover {
+  color: #007bff;
+}
+
+.post-title .tag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.post-time {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* ========================================
+   右侧边栏组件
+   ======================================== */
+.widget {
+  margin-bottom: 2rem;
+}
+
+.widget-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #007bff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.widget-icon {
+  font-size: 1.2rem;
+}
+
+.ranking-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.ranking-list li:last-child {
+  border-bottom: none;
+}
+
+.rank-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #007bff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+}
+
+.rank-number.top3 {
+  background: linear-gradient(135deg, #ffd700, #ffb700);
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.user-points {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.hot-items li {
+  border-bottom: 1px solid #e9ecef;
+  padding: 0.8rem 0;
+}
+
+.hot-items li:last-child {
+  border-bottom: none;
+}
+
+.hot-item, .hot-group {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.hot-item-title, .group-name {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.hot-item-stats, .group-stats {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.hot-item-stats span, .group-stats span {
+  margin-right: 0.8rem;
+}
+
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.group-icon {
+  font-size: 1.2rem;
+}
+
+.view-more {
+  display: block;
+  text-align: center;
+  padding: 0.5rem 0;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.view-more:hover {
+  color: #0056b3;
+}
+
+.widget-ad {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.ad-content {
+  color: white;
+}
+
+.ad-content p {
+  margin-bottom: 0.5rem;
+}
+
+.ad-contact {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ========================================
+   弹窗样式
+   ======================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.post-modal {
+  max-width: 600px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h2 {
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-tabs {
+  display: flex;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.tab-btn:hover {
+  color: #007bff;
+  background: #f8f9fa;
+}
+
+.message {
+  margin: 1rem 1.5rem 0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.auth-form, .post-form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.submit-btn, .cancel-btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #ddd;
+}
+
+.cancel-btn:hover {
+  background: #e9ecef;
+}
+
+/* ========================================
+   页脚
+   ======================================== */
+.footer {
+  background: #1a1a2e;
+  color: white;
+  padding: 40px 2rem 20px;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer p {
+  margin: 0.3rem 0;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.footer .slogan {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+@media (max-width: 1200px) {
+  .main-container {
+    grid-template-columns: 200px 1fr 250px;
+    padding: 80px 1.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-container {
+    grid-template-columns: 180px 1fr;
+    padding: 80px 1rem 1rem;
+  }
+  
+  .right-sidebar {
+    display: none;
+  }
+  
+  .datetime {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .main-container {
+    grid-template-columns: 1fr;
+    padding: 80px 1rem 1rem;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  .search-box {
+    margin: 0 1rem;
+  }
+  
+  .header-content {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 80px 0.5rem 0.5rem;
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 1rem;
+  }
+}

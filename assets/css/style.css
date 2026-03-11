@@ -1,0 +1,367 @@
+/**
+ * ========================================
+ * 主样式文件 - 5G消息交流论坛
+ * ========================================
+ * @description 包含全局样式、基础样式、布局和通用组件
+ * @author Forum Team
+ * @date 2026-03-10
+ * @version 1.0.0
+ */
+
+/* ========================================
+   CSS Reset - 重置浏览器默认样式
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   基础样式 - 全局基础设置
+   ======================================== */
+
+/* 设置默认字体和基础排版 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f0f2f5;
+    font-size: 16px;
+}
+
+/* 设置链接默认样式 */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+/* 设置列表默认样式 */
+ul, ol {
+    list-style: none;
+}
+
+/* 设置图片默认样式 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 设置按钮基础样式 */
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ========================================
+   通用工具类 - 可复用的样式类
+   ======================================== */
+
+/* 文本对齐 */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* 文本颜色 */
+.text-primary {
+    color: #007bff;
+}
+
+.text-secondary {
+    color: #6c757d;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.text-muted {
+    color: #999;
+}
+
+/* 间距工具类 */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+/* 徽章样式 */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 4px;
+}
+
+.badge-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* ========================================
+   布局容器 - 主容器样式
+   ======================================== */
+
+/* 主布局容器 - 使用Grid布局 */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 2rem 2rem;
+    display: grid;
+    grid-template-columns: 240px 1fr 280px;
+    gap: 20px;
+    min-height: calc(100vh - 120px);
+}
+
+/* 卡片容器通用样式 */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* ========================================
+   响应式设计 - 适配不同屏幕尺寸
+   ======================================== */
+
+/* 平板设备 - 1200px以下 */
+@media (max-width: 1200px) {
+    .main-container {
+        grid-template-columns: 200px 1fr 250px;
+        padding: 80px 1.5rem 1.5rem;
+    }
+}
+
+/* 小型平板 - 992px以下 */
+@media (max-width: 992px) {
+    .main-container {
+        grid-template-columns: 180px 1fr;
+        padding: 80px 1rem 1rem;
+    }
+    
+    /* 隐藏右侧侧边栏 */
+    .right-sidebar {
+        display: none;
+    }
+}
+
+/* 手机设备 - 768px以下 */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .main-container {
+        grid-template-columns: 1fr;
+        padding: 80px 1rem 1rem;
+    }
+    
+    /* 隐藏左右侧边栏 */
+    .sidebar {
+        display: none;
+    }
+    
+    /* Logo字体调整 */
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    /* 搜索框边距调整 */
+    .search-box {
+        margin: 0 1rem;
+    }
+    
+    /* 隐藏时间日期显示 */
+    .datetime {
+        display: none;
+    }
+}
+
+/* 小屏手机 - 480px以下 */
+@media (max-width: 480px) {
+    .main-container {
+        padding: 80px 0.5rem 0.5rem;
+    }
+    
+    /* 调整按钮样式 */
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================================
+   动画效果 - 平滑过渡和动画
+   ======================================== */
+
+/* 淡入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 从下向上淡入动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 从上向下淡入动画 */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 淡入缩放动画 */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 悬停效果 - 悬停时轻微上移 */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* 悬停效果 - 悬停时背景变色 */
+.hover-bg {
+    transition: background-color 0.3s ease;
+}
+
+.hover-bg:hover {
+    background-color: #f8f9fa;
+}
+
+/* ========================================
+   滚动条样式 - 自定义滚动条
+   ======================================== */
+
+/* Webkit浏览器（Chrome, Safari, Edge）滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Firefox浏览器滚动条 */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/* ========================================
+   打印样式 - 优化打印效果
+   ======================================== */
+
+@media print {
+    /* 隐藏不需要打印的元素 */
+    header,
+    .sidebar,
+    footer,
+    .post-btn {
+        display: none !important;
+    }
+    
+    /* 调整主内容区域 */
+    .main-container {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+    
+    /* 移除背景色 */
+    body {
+        background: white;
+    }
+    
+    /* 确保文字清晰 */
+    body {
+        color: black;
+    }
+}

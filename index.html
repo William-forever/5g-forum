@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<!--
+    ========================================
+    网站首页 - 5G消息交流论坛
+    ========================================
+    @description 论坛首页，包含完整的页面结构
+    @author Forum Team
+    @date 2026-03-10
+    @version 1.0.0
+    ========================================
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="中移互5G消息交流论坛 - 专业的5G消息技术交流平台">
+    <meta name="keywords" content="5G消息,RCS,消息推送,短信升级,论坛">
+    <meta name="author" content="中移互5G消息交流论坛">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph 社交媒体分享 -->
+    <meta property="og:title" content="中移互5G消息交流论坛">
+    <meta property="og:description" content="专业的5G消息技术交流平台">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.5gforum.com">
+    
+    <title>中移互5G消息交流论坛 - 首页</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <style>
+        /* ========================================
+           页面特定样式 - 首页
+           ======================================== */
+        
+        /* 头部导航样式 */
+        header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1.2rem 0.6rem 2.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+        .search-button {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .datetime {
+            color: white;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .forum-section {
+            list-style: none;
+        }
+
+        .forum-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .forum-section a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .forum-section a:hover {
+            background: #e7f1ff;
+            color: #007bff;
+            transform: translateX(5px);
+        }
+
+        .forum-section a .icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .forum-section a .name {
+            flex: 1;
+        }
+
+        .forum-section a .count {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .sidebar-stats {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        /* 主内容区域样式 */
+        .main-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+        }
+
+        .main-content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .main-content-header h2 {
+            font-size: 1.4rem;
+            color: #333;
+        }
+
+        .post-btn {
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+
+        /* 帖子列表样式 */
+        .post-item {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e9ecef;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .post-item:hover {
+            background: #f8f9fa;
+        }
+
+        .post-item:last-child {
+            border-bottom: none;
+        }
+
+        .post-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .post-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .post-title a:hover {
+            color: #007bff;
+        }
+
+        .post-title .tag {
+            background: #e7f1ff;
+            color: #007bff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .post-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .post-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* 右侧侧边栏组件样式 */
+        .widget {
+            margin-bottom: 2rem;
+        }
+
+        .widget-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #007bff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .widget-icon {
+            font-size: 1.2rem;
+        }
+
+        .ranking-list,
+        .hot-items {
+            list-style: none;
+        }
+
+        .ranking-list li {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .ranking-list li:last-child,
+        .hot-items li:last-child {
+            border-bottom: none;
+        }
+
+        .rank-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .rank-number.top3 {
+            background: linear-gradient(135deg, #ffd700, #ffb700);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .user-points {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .hot-items .hot-item,
+        .hot-items .hot-group {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .hot-item-title,
+        .group-name {
+            font-size: 0.95rem;
+            color: #333;
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+
+        .hot-item-stats,
+        .group-stats {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .hot-item-stats span,
+        .group-stats span {
+            margin-right: 0.8rem;
+        }
+
+        .group-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .group-icon {
+            font-size: 1.2rem;
+        }
+
+        .view-more {
+            display: block;
+            text-align: center;
+            padding: 0.5rem 0;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .view-more:hover {
+            color: #0056b3;
+        }
+
+        .widget-ad {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .ad-content {
+            color: white;
+        }
+
+        .ad-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-contact {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 2rem 20px;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            margin: 0.3rem 0;
+        }
+
+        .slogan {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .icp {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .icp span {
+            margin: 0 0.5rem;
+        }
+
+        .icp a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .icp a:hover {
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">📡</span>
+                中移互5G消息交流论坛
+            </a>
+            
+            <div class="search-box">
+                <button class="search-button" aria-label="搜索">🔍</button>
+                <input 
+                    type="text" 
+                    placeholder="搜索帖子、用户、话题..." 
+                    autocomplete="off"
+                    aria-label="搜索"
+                >
+            </div>
+            
+            <div class="datetime" id="datetime">
+                <!-- 日期时间由JavaScript动态更新 -->
+            </div>
+        </div>
+    </header>
+
+    <!-- 主布局容器 -->
+    <div class="main-container">
+        <!-- 左侧侧边栏 - 论坛板块 -->
+        <aside class="sidebar">
+            <h3 class="sidebar-title">论坛板块</h3>
+            
+            <ul class="forum-section">
+                <li>
+                    <a href="#" title="5G消息行业最新动态和新闻资讯">
+                        <span class="icon">📰</span>
+                        <span class="name">行业动态</span>
+                        <span class="count">100+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="5G消息相关项目招标和投标信息">
+                        <span class="icon">📋</span>
+                        <span class="name">招投标信息</span>
+                        <span class="count">50+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="5G消息产品使用教程和培训资料">
+                        <span class="icon">📚</span>
+                        <span class="name">产品培训</span>
+                        <span class="count">80+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="行业间的合作与交流">
+                        <span class="icon">🤝</span>
+                        <span class="name">行业联动</span>
+                        <span class="count">60+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="AI Agent在5G消息场景下的应用交流">
+                        <span class="icon">🤖</span>
+                        <span class="name">agent交流广场</span>
+                        <span class="count">120+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="5G消息技术问题讨论和经验分享">
+                        <span class="icon">💬</span>
+                        <span class="name">技术交流</span>
+                        <span class="count">200+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="发布和寻找5G消息相关需求">
+                        <span class="icon">🎯</span>
+                        <span class="name">需求发布</span>
+                        <span class="count">40+</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" title="论坛活动和行业会议通知">
+                        <span class="icon">📅</span>
+                        <span class="name">活动通知</span>
+                        <span class="count">30+</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-stats">
+                <div class="stat-item">
+                    <span class="stat-label">今日发帖</span>
+                    <span class="stat-value">28</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">今日回复</span>
+                    <span class="stat-value">156</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">在线人数</span>
+                    <span class="stat-value">1,234</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 中间主要内容 - 帖子列表 -->
+        <main class="main-content">
+            <div class="main-content-header">
+                <h2>最新帖子</h2>
+                <button class="post-btn">发布新帖</button>
+            </div>
+
+            <div class="post-list">
+                <div class="post-item" data-post-id="1">
+                    <div class="post-title">
+                        <span class="tag">行业动态</span>
+                        <a href="#">5G消息在金融行业的应用实践与案例分析</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 128</span>
+                            <span>💬 56</span>
+                            <span>👁️ 2.3k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">李</div>
+                            <span>李明</span>
+                            <span class="post-time" data-relative-time="2026-03-10 08:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="2">
+                    <div class="post-title">
+                        <span class="tag">技术交流</span>
+                        <a href="#">如何优化5G消息的推送到达率？经验分享</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 96</span>
+                            <span>💬 42</span>
+                            <span>👁️ 1.8k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">张</div>
+                            <span>张伟</span>
+                            <span class="post-time" data-relative-time="2026-03-10 09:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="3">
+                    <div class="post-title">
+                        <span class="tag">招投标信息</span>
+                        <a href="#">2026年第一季度5G消息服务采购项目招标公告</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 67</span>
+                            <span>💬 38</span>
+                            <span>👁️ 1.5k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">王</div>
+                            <span>王芳</span>
+                            <span class="post-time" data-relative-time="2026-03-10 07:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="4">
+                    <div class="post-title">
+                        <span class="tag">agent交流广场</span>
+                        <a href="#">AI Agent在5G消息场景下的创新应用探讨</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 145</span>
+                            <span>💬 89</span>
+                            <span>👁️ 3.2k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">陈</div>
+                            <span>陈强</span>
+                            <span class="post-time" data-relative-time="2026-03-10 06:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="5">
+                    <div class="post-title">
+                        <span class="tag">产品培训</span>
+                        <a href="#">5G消息平台功能更新说明及操作指南</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 83</span>
+                            <span>💬 45</span>
+                            <span>👁️ 2.1k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">刘</div>
+                            <span>刘洋</span>
+                            <span class="post-time" data-relative-time="2026-03-10 10:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="6">
+                    <div class="post-title">
+                        <span class="tag">行业联动</span>
+                        <a href="#">电信运营商5G消息生态建设现状与展望</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 112</span>
+                            <span>💬 67</span>
+                            <span>👁️ 2.7k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">赵</div>
+                            <span>赵丽</span>
+                            <span class="post-time" data-relative-time="2026-03-10 05:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="7">
+                    <div class="post-title">
+                        <span class="tag">需求发布</span>
+                        <a href="#">寻求5G消息平台技术合作伙伴</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 54</span>
+                            <span>💬 31</span>
+                            <span>👁️ 1.2k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">周</div>
+                            <span>周杰</span>
+                            <span class="post-time" data-relative-time="2026-03-10 04:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-item" data-post-id="8">
+                    <div class="post-title">
+                        <span class="tag">技术交流</span>
+                        <a href="#">5G消息富媒体内容设计与最佳实践</a>
+                    </div>
+                    <div class="post-info">
+                        <div class="post-meta">
+                            <span>👍 78</span>
+                            <span>💬 52</span>
+                            <span>👁️ 1.9k</span>
+                        </div>
+                        <div class="author">
+                            <div class="author-avatar">吴</div>
+                            <span>吴敏</span>
+                            <span class="post-time" data-relative-time="2026-03-10 03:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 右侧侧边栏 -->
+        <aside class="sidebar right-sidebar">
+            <!-- 积分排行榜 -->
+            <div class="widget">
+                <h4 class="widget-title">
+                    <span class="widget-icon">🏆</span>
+                    积分排行榜
+                </h4>
+                <ul class="ranking-list">
+                    <li>
+                        <div class="rank-number top3">1</div>
+                        <div class="user-info">
+                            <div class="user-name">李明</div>
+                            <div class="user-points">12,580 积分</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="rank-number top3">2</div>
+                        <div class="user-info">
+                            <div class="user-name">陈强</div>
+                            <div class="user-points">11,230 积分</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="rank-number top3">3</div>
+                        <div class="user-info">
+                            <div class="user-name">赵丽</div>
+                            <div class="user-points">10,890 积分</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="rank-number">4</div>
+                        <div class="user-info">
+                            <div class="user-name">张伟</div>
+                            <div class="user-points">9,650 积分</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="rank-number">5</div>
+                        <div class="user-info">
+                            <div class="user-name">王芳</div>
+                            <div class="user-points">8,920 积分</div>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="view-more">查看更多 &rarr;</a>
+            </div>
+
+            <!-- 热门作品 -->
+            <div class="widget">
+                <h4 class="widget-title">
+                    <span class="widget-icon">🎨</span>
+                    热门作品
+                </h4>
+                <ul class="hot-items">
+                    <li>
+                        <a href="#" class="hot-item">
+                            <div class="hot-item-title">5G消息营销自动化系统设计</div>
+                            <div class="hot-item-stats">
+                                <span>👍 238</span>
+                                <span>💬 156</span>
+                                <span>👁️ 5,600</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-item">
+                            <div class="hot-item-title">智能客服机器人接入指南</div>
+                            <div class="hot-item-stats">
+                                <span>👍 192</span>
+                                <span>💬 134</span>
+                                <span>👁️ 4,200</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-item">
+                            <div class="hot-item-title">5G消息数据分析平台搭建</div>
+                            <div class="hot-item-stats">
+                                <span>👍 167</span>
+                                <span>💬 98</span>
+                                <span>👁️ 3,800</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-item">
+                            <div class="hot-item-title">RCS富媒体消息模板库</div>
+                            <div class="hot-item-stats">
+                                <span>👍 145</span>
+                                <span>💬 87</span>
+                                <span>👁️ 3,200</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a href="#" class="view-more">查看更多 &rarr;</a>
+            </div>
+
+            <!-- 热门小组 -->
+            <div class="widget">
+                <h4 class="widget-title">
+                    <span class="widget-icon">👥</span>
+                    热门小组
+                </h4>
+                <ul class="hot-items">
+                    <li>
+                        <a href="#" class="hot-group">
+                            <div class="group-info">
+                                <span class="group-icon">📱</span>
+                                <span class="group-name">5G消息技术交流组</span>
+                            </div>
+                            <div class="group-stats">
+                                <span>👥 2,345</span>
+                                <span>📝 5,678</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-group">
+                            <div class="group-info">
+                                <span class="group-icon">🏦</span>
+                                <span class="group-name">金融行业5G消息组</span>
+                            </div>
+                            <div class="group-stats">
+                                <span>👥 1,876</span>
+                                <span>📝 3,456</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-group">
+                            <div class="group-info">
+                                <span class="group-icon">🎨</span>
+                                <span class="group-name">创意设计小组</span>
+                            </div>
+                            <div class="group-stats">
+                                <span>👥 1,234</span>
+                                <span>📝 2,789</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hot-group">
+                            <div class="group-info">
+                                <span class="group-icon">🤖</span>
+                                <span class="group-name">AI Agent研究组</span>
+                            </div>
+                            <div class="group-stats">
+                                <span>👥 987</span>
+                                <span>📝 2,134</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a href="#" class="view-more">查看更多 &rarr;</a>
+            </div>
+
+            <!-- 广告位 -->
+            <div class="widget widget-ad">
+                <div class="ad-content">
+                    <p>📢 广告位招租</p>
+                    <p class="ad-contact">联系邮箱：ad@5gforum.com</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 中移互5G消息交流论坛. 保留所有权利.</p>
+            <p class="slogan">让5G消息连接一切，共建行业生态</p>
+            <p class="icp">
+                <a href="#">京ICP备XXXXXXXX号</a>
+                <span>|</span>
+                <a href="#">京公网安备XXXXXXXX号</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript文件 -->
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/datetime.js"></script>
+    <script src="./assets/js/posts.js"></script>
+</body>
+</html>

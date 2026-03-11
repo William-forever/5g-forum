@@ -1,0 +1,46 @@
+<!-- ========================================
+     头部导航组件 - 5G消息交流论坛
+     ========================================
+     @description 包含Logo、搜索框、时间日期显示
+     @author Forum Team
+     @date 2026-03-10
+     @version 1.0.0
+     ======================================== -->
+
+<header>
+    <div class="header-content">
+        <!-- 网站Logo和名称 -->
+        <a href="/" class="logo">
+            <span class="logo-icon">📡</span>
+            中移互5G消息交流论坛
+        </a>
+        
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <input 
+                type="text" 
+                placeholder="搜索帖子、用户、话题..." 
+                autocomplete="off"
+                aria-label="搜索"
+            >
+            <button class="search-button" aria-label="搜索">
+                🔍
+            </button>
+        </div>
+        
+        <!-- 时间日期显示 -->
+        <div class="datetime" id="datetime">
+            <!-- 日期时间由JavaScript动态更新 -->
+        </div>
+        
+        <!-- 用户信息（可选） -->
+        <div class="user-actions">
+            <!-- 登录后显示用户信息，未登录显示登录按钮 -->
+            <!-- 示例代码 -->
+            <!--
+            <a href="/login" class="btn btn-outline">登录</a>
+            <a href="/register" class="btn btn-primary">注册</a>
+            -->
+        </div>
+    </div>
+</header>
