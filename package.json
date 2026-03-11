@@ -2,12 +2,10 @@
   "name": "5g-forum",
   "version": "1.0.0",
   "description": "中移互5G消息交流论坛 - Supabase版本",
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "seed": "node scripts/seed-posts.js"
+    "start": "next start"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",

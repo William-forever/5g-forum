@@ -27,10 +27,17 @@ export default function Home() {
 
   // 检查登录状态
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    if (token && userData) {
-      setUser(JSON.parse(userData));
+    // 只在客户端执行
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('user');
+      if (token && userData) {
+        try {
+          setUser(JSON.parse(userData));
+        } catch (e) {
+          console.error('解析用户数据失败:', e);
+        }
+      }
     }
     fetchPosts();
   }, []);
@@ -63,16 +70,20 @@ export default function Home() {
   // 处理登录成功
   const handleLoginSuccess = (userData, token) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    localStorage.setItem('token', token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('token', token);
+    }
     setShowAuthModal(false);
   };
 
   // 处理登出
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
   };
 
   // 处理发布文章成功
