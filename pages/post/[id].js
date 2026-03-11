@@ -257,126 +257,128 @@ export default function PostDetail() {
   }
 
   return (
-    <div className="container">
-      <Head>
-        <title>{post.title} - 中移互5G消息交流论坛</title>
-        <meta name="description" content={post.content.substring(0, 100)} />
-      </Head>
+    <>
+      <div className="container">
+        <Head>
+          <title>{post.title} - 中移互5G消息交流论坛</title>
+          <meta name="description" content={post.content.substring(0, 100)} />
+        </Head>
 
-      <Header 
-        user={user} 
-        onLoginClick={() => { setAuthTab('login'); setShowAuthModal(true); }}
-        onRegisterClick={() => { setAuthTab('register'); setShowAuthModal(true); }}
-        onLogout={handleLogout}
-      />
-
-      <main className="main-container">
-        <Sidebar 
-          activeCategory={post?.category || ''} 
-          onCategoryChange={handleCategoryChange} 
+        <Header 
+          user={user} 
+          onLoginClick={() => { setAuthTab('login'); setShowAuthModal(true); }}
+          onRegisterClick={() => { setAuthTab('register'); setShowAuthModal(true); }}
+          onLogout={handleLogout}
         />
-        
-        <div className="main-content">
-          {/* 帖子头部 */}
-          <div className="post-detail-header">
-            <div className="post-category" style={{ 
-              display: 'inline-block',
-              padding: '4px 12px',
-              borderRadius: '4px',
-              backgroundColor: `${getCategoryColor(post.category)}20`,
-              color: getCategoryColor(post.category),
-              fontSize: '14px',
-              marginBottom: '16px'
-            }}>
-              {post.category}
-            </div>
-            <h1 className="post-detail-title">{post.title}</h1>
-            <div className="post-detail-meta">
-              <div className="author">
-                <div className="author-avatar">{post.author ? post.author.charAt(0) : '?'}</div>
-                <span>{post.author || '未知用户'}</span>
-              </div>
-              <span className="post-time">{formatTime(post.createdAt)}</span>
-              <span className="post-views">👁️ {post.views} 浏览</span>
-            </div>
-          </div>
 
-          {/* 帖子内容 */}
-          <div 
-            className="post-detail-content"
-            dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+        <main className="main-container">
+          <Sidebar 
+            activeCategory={post?.category || ''} 
+            onCategoryChange={handleCategoryChange} 
           />
           
+          <div className="main-content">
+            {/* 帖子头部 */}
+            <div className="post-detail-header">
+              <div className="post-category" style={{ 
+                display: 'inline-block',
+                padding: '4px 12px',
+                borderRadius: '4px',
+                backgroundColor: `${getCategoryColor(post.category)}20`,
+                color: getCategoryColor(post.category),
+                fontSize: '14px',
+                marginBottom: '16px'
+              }}>
+                {post.category}
+              </div>
+              <h1 className="post-detail-title">{post.title}</h1>
+              <div className="post-detail-meta">
+                <div className="author">
+                  <div className="author-avatar">{post.author ? post.author.charAt(0) : '?'}</div>
+                  <span>{post.author || '未知用户'}</span>
+                </div>
+                <span className="post-time">{formatTime(post.createdAt)}</span>
+                <span className="post-views">👁️ {post.views} 浏览</span>
+              </div>
+            </div>
 
-
-          {/* 操作按钮 */}
-          <div className="post-actions-bar">
-            <button className="action-btn like-btn" onClick={handleLike}>
-              👍 点赞 ({post.likes})
-            </button>
-            <button className="action-btn comment-btn">
-              💬 评论 ({post.comments})
-            </button>
-            <button className="action-btn share-btn">
-              📤 分享
-            </button>
-          </div>
-
-          {/* 评论区 */}
-          <div className="comments-section">
-            <h3>评论 ({comments.length})</h3>
+            {/* 帖子内容 */}
+            <div 
+              className="post-detail-content"
+              dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
+            />
             
-            {/* 评论输入框 */}
-            <form className="comment-form" onSubmit={handleSubmitComment}>
-              <textarea
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.target.value)}
-                placeholder={user ? "写下你的评论..." : "请先登录后评论"}
-                disabled={!user}
-                rows={4}
-              />
-              <button type="submit" className="submit-btn" disabled={!user}>
-                发表评论
-              </button>
-            </form>
 
-            {/* 评论列表 */}
-            <div className="comments-list">
-              {comments.length === 0 ? (
-                <p className="no-comments">暂无评论，快来抢沙发吧！</p>
-              ) : (
-                comments.map((comment) => (
-                  <div key={comment.id} className="comment-item">
-                    <div className="comment-header">
-                      <div className="author">
-                        <div className="author-avatar">{comment.author ? comment.author.charAt(0) : '?'}</div>
-                        <span>{comment.author || '匿名用户'}</span>
+
+            {/* 操作按钮 */}
+            <div className="post-actions-bar">
+              <button className="action-btn like-btn" onClick={handleLike}>
+                👍 点赞 ({post.likes})
+              </button>
+              <button className="action-btn comment-btn">
+                💬 评论 ({post.comments})
+              </button>
+              <button className="action-btn share-btn">
+                📤 分享
+              </button>
+            </div>
+
+            {/* 评论区 */}
+            <div className="comments-section">
+              <h3>评论 ({comments.length})</h3>
+              
+              {/* 评论输入框 */}
+              <form className="comment-form" onSubmit={handleSubmitComment}>
+                <textarea
+                  value={commentContent}
+                  onChange={(e) => setCommentContent(e.target.value)}
+                  placeholder={user ? "写下你的评论..." : "请先登录后评论"}
+                  disabled={!user}
+                  rows={4}
+                />
+                <button type="submit" className="submit-btn" disabled={!user}>
+                  发表评论
+                </button>
+              </form>
+
+              {/* 评论列表 */}
+              <div className="comments-list">
+                {comments.length === 0 ? (
+                  <p className="no-comments">暂无评论，快来抢沙发吧！</p>
+                ) : (
+                  comments.map((comment) => (
+                    <div key={comment.id} className="comment-item">
+                      <div className="comment-header">
+                        <div className="author">
+                          <div className="author-avatar">{comment.author ? comment.author.charAt(0) : '?'}</div>
+                          <span>{comment.author || '匿名用户'}</span>
+                        </div>
+                        <span className="comment-time">{formatTime(comment.createdAt)}</span>
                       </div>
-                      <span className="comment-time">{formatTime(comment.createdAt)}</span>
+                      <div className="comment-content">{comment.content}</div>
                     </div>
-                    <div className="comment-content">{comment.content}</div>
-                  </div>
-                ))
-              )}
+                  ))
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        
-        <RightSidebar />
-      </main>
+          
+          <RightSidebar />
+        </main>
 
-      <footer className="footer">
-        <p>&copy; 2026 中移互5G消息交流论坛. 保留所有权利.</p>
-        <p className="slogan">让5G消息连接一切，共建行业生态</p>
-      </footer>
+        <footer className="footer">
+          <p>&copy; 2026 中移互5G消息交流论坛. 保留所有权利.</p>
+          <p className="slogan">让5G消息连接一切，共建行业生态</p>
+        </footer>
 
-      {showAuthModal && (
-        <AuthModal 
-          initialTab={authTab}
-          onClose={() => setShowAuthModal(false)}
-          onLoginSuccess={handleLoginSuccess}
-        />
-      )}
+        {showAuthModal && (
+          <AuthModal 
+            initialTab={authTab}
+            onClose={() => setShowAuthModal(false)}
+            onLoginSuccess={handleLoginSuccess}
+          />
+        )}
+      </div>
 
       <style jsx>{`
         .post-detail-header {
@@ -606,6 +608,6 @@ export default function PostDetail() {
           color: #333;
         }
       `}</style>
-    </div>
+    </>
   );
 }
