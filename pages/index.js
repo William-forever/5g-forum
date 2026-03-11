@@ -39,7 +39,7 @@ export default function Home() {
       const response = await fetch('/api/posts');
       const data = await response.json();
       if (data.success) {
-        setPosts(data.data.posts);
+        setPosts(data.posts || []);
       }
     } catch (error) {
       console.error('获取文章失败:', error);

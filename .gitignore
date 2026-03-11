@@ -82,7 +82,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/ 注释掉，因为我们的项目使用 lib/ 存放工具文件
+# lib/
 lib64/
 parts/
 sdist/
