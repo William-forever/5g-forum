@@ -7,20 +7,9 @@ const nextConfig = {
   
   // 环境变量
   env: {
-    JWT_SECRET: process.env.JWT_SECRET
-  },
-  
-  // 静态导出配置
-  output: 'export',
-  
-  // 重写规则
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*'
-      }
-    ];
+    JWT_SECRET: process.env.JWT_SECRET,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   }
 };
 

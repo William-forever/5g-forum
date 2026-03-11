@@ -94,7 +94,7 @@ export default function PostList({ posts, user, category, onPostClick }) {
                     {post.author ? post.author.charAt(0) : '?'}
                   </div>
                   <span>{post.author || '未知用户'}</span>
-                  <span className="post-time">{formatTime(post.createdAt)}</span>
+                  <span className="post-time">{formatTime(post.createdAt || post.created_at)}</span>
                 </div>
               </div>
             </div>

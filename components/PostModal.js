@@ -20,6 +20,7 @@ export default function PostModal({ onClose, onSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const categories = [
+    '行业解决方案',
     '行业动态',
     '招投标信息',
     '产品培训',
