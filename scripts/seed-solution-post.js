@@ -110,7 +110,9 @@ async function seedSolutionPost() {
       views: 1234,
       is_top: true, // 置顶标志
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     // 插入帖子数据

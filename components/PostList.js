@@ -66,7 +66,7 @@ export default function PostList({ posts, user, category, onPostClick }) {
           [...posts].sort((a, b) => {
             if (a.is_top && !b.is_top) return -1;
             if (!a.is_top && b.is_top) return 1;
-            return new Date(b.created_at) - new Date(a.created_at);
+            return new Date(b.createdAt || b.created_at) - new Date(a.createdAt || a.created_at);
           }).map((post) => (
             <div key={post.id} className="post-item" data-post-id={post.id}>
               <div className="post-title">
