@@ -71,7 +71,12 @@ export default function PostDetail() {
       
       if (data && data.success && data.post) {
         setPost(data.post);
-        setComments(Array.isArray(data.comments) ? data.comments : []);
+        // 将评论的 created_at 映射为 createdAt
+        const commentsWithMappedFields = (data.comments || []).map(comment => ({
+          ...comment,
+          createdAt: comment.created_at
+        }));
+        setComments(commentsWithMappedFields);
       } else {
         alert('帖子不存在或已被删除');
         router.push('/');
@@ -173,7 +178,12 @@ export default function PostDetail() {
       });
       const data = await response.json();
       if (data.success) {
-        setComments([data.comment, ...comments]);
+        // 将新评论的 created_at 映射为 createdAt
+        const newComment = {
+          ...data.comment,
+          createdAt: data.comment.created_at
+        };
+        setComments([newComment, ...comments]);
         setCommentContent('');
         if (post) {
           setPost({ ...post, comments: (post.comments || 0) + 1 });

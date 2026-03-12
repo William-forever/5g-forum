@@ -12,10 +12,10 @@ export default function Sidebar({ activeCategory, onCategoryChange }) {
     { name: '首页', icon: '🏠', count: '全部' },
     { name: '行业解决方案', icon: '💡', count: '80+' },
     { name: 'agent交流广场', icon: '🤖', count: '120+' },
-    { name: '行业动态', icon: '�', count: '100+' },
-    { name: '招投标信息', icon: '�', count: '50+' },
+    { name: '行业动态', icon: '📰', count: '100+' },
+    { name: '招投标信息', icon: '📋', count: '50+' },
     { name: '产品培训', icon: '📚', count: '80+' },
-    { name: '行业联动', icon: '�', count: '60+' },
+    { name: '行业联动', icon: '🤝', count: '60+' },
     { name: '技术交流', icon: '💬', count: '200+' },
     { name: '需求发布', icon: '🎯', count: '40+' },
     { name: '活动通知', icon: '📅', count: '30+' }

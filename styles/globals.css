@@ -1,11 +1,53 @@
 /**
  * ========================================
- * 全局样式文件
+ * 全局样式文件 - 现代化科技感版本
  * ========================================
  * @description 新消息交流论坛全局样式
  * @date 2026-03-10
- * @version 1.0.0
+ * @version 2.0.0
  */
+
+/* ========================================
+   CSS 变量 - 支持黑暗模式
+   ======================================== */
+:root {
+  /* 亮色模式 */
+  --primary-color: #007bff;
+  --primary-gradient: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --tech-gradient: linear-gradient(135deg, #00f5fe 0%, #007bff 100%);
+  
+  --bg-color: #f0f2f5;
+  --bg-card: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  
+  --header-height: 70px;
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='dark'] {
+  /* 黑暗模式 */
+  --primary-color: #4dabf7;
+  --primary-gradient: linear-gradient(135deg, #4dabf7 0%, #3b82f6 100%);
+  --secondary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  --tech-gradient: linear-gradient(135deg, #00f5fe 0%, #4dabf7 100%);
+  
+  --bg-color: #0f1419;
+  --bg-card: #1a1f2e;
+  --text-color: #e4e6eb;
+  --text-secondary: #b0b3b8;
+  --text-muted: #65676b;
+  --border-color: #2f3336;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.5);
+}
 
 /* ========================================
    CSS Reset
@@ -22,15 +64,16 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background: #f0f2f5;
+  color: var(--text-color);
+  background: var(--bg-color);
   font-size: 16px;
+  transition: var(--transition);
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  transition: color 0.3s ease;
+  transition: var(--transition);
 }
 
 ul, ol {
@@ -56,25 +99,28 @@ button {
 .main-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 2rem 2rem;
+  padding: calc(var(--header-height) + 20px) 2rem 2rem;
   display: grid;
   grid-template-columns: 240px 1fr 280px;
   gap: 20px;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - var(--header-height) - 80px);
   width: 100%;
+  transition: var(--transition);
 }
 
 /* ========================================
-   头部导航
+   头部导航 - 科技感增强
    ======================================== */
 .header {
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: var(--primary-gradient);
+  box-shadow: 0 4px 20px var(--shadow-color);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
   padding: 0.8rem 0;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
 }
 
 .header-content {
@@ -95,10 +141,17 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .logo-icon {
   font-size: 1.8rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .search-box {
@@ -112,17 +165,19 @@ button {
 
 .search-box input {
   width: 100%;
-  padding: 0.6rem 1.2rem 0.6rem 2.5rem;
+  padding: 0.7rem 1.5rem 0.7rem 3rem;
   border: none;
   border-radius: 25px;
   font-size: 0.95rem;
   outline: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: var(--transition);
+  background: rgba(255,255,255,0.95);
 }
 
 .search-box input:focus {
-  box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0,123,255,0.3);
+  transform: translateY(-1px);
 }
 
 .search-button {
@@ -135,6 +190,11 @@ button {
   font-size: 1.2rem;
   cursor: pointer;
   color: #666;
+  transition: var(--transition);
+}
+
+.search-button:hover {
+  color: var(--primary-color);
 }
 
 .header-right {
@@ -199,25 +259,26 @@ button {
 }
 
 /* ========================================
-   侧边栏
+   侧边栏 - 现代化设计
    ======================================== */
 .sidebar {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px var(--shadow-color);
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
-  top: 90px;
+  top: calc(var(--header-height) + 10px);
+  transition: var(--transition);
 }
 
 .sidebar-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #007bff;
+  color: var(--primary-color);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .forum-section li {
@@ -228,22 +289,23 @@ button {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #555;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
-  transition: all 0.3s;
+  color: var(--text-secondary);
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
 }
 
 .forum-section a:hover,
 .forum-section a.active {
-  background: #e7f1ff;
-  color: #007bff;
+  background: linear-gradient(135deg, rgba(0,123,255,0.1) 0%, rgba(0,123,255,0.05) 100%);
+  color: var(--primary-color);
   transform: translateX(5px);
 }
 
 .forum-section a.active {
-  background: #007bff;
+  background: var(--primary-gradient);
   color: white;
+  box-shadow: 0 2px 10px rgba(0,123,255,0.3);
 }
 
 .forum-section a.active .count {
@@ -261,13 +323,13 @@ button {
 
 .forum-section a .count {
   font-size: 0.8rem;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .sidebar-stats {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid var(--border-color);
 }
 
 .stat-item {
@@ -279,22 +341,23 @@ button {
 }
 
 .stat-label {
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .stat-value {
   font-weight: 600;
-  color: #007bff;
+  color: var(--primary-color);
 }
 
 /* ========================================
-   主内容区域
+   主内容区域 - 现代化卡片设计
    ======================================== */
 .main-content {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px var(--shadow-color);
   padding: 1.5rem;
+  transition: var(--transition);
 }
 
 .main-content-header {
@@ -303,45 +366,50 @@ button {
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #e9ecef;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .main-content-header h2 {
   font-size: 1.4rem;
-  color: #333;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 .post-btn {
-  padding: 0.6rem 1.5rem;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  padding: 0.7rem 1.8rem;
+  background: var(--primary-gradient);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0,123,255,0.2);
 }
 
 .post-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+  box-shadow: 0 6px 20px rgba(0,123,255,0.4);
 }
 
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .post-item {
   padding: 1.2rem;
-  border-bottom: 1px solid #e9ecef;
-  transition: background 0.3s;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
   cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 0.5rem;
 }
 
 .post-item:hover {
-  background: #f8f9fa;
+  background: var(--bg-color);
+  transform: translateX(5px);
 }
 
 .post-item:last-child {
@@ -351,7 +419,7 @@ button {
 .post-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 0.6rem;
   display: flex;
   align-items: center;
@@ -359,13 +427,13 @@ button {
 }
 
 .post-title a {
-  color: #333;
+  color: inherit;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: var(--transition);
 }
 
 .post-title a:hover {
-  color: #007bff;
+  color: var(--primary-color);
 }
 
 .post-title .tag {
@@ -374,6 +442,8 @@ button {
   font-size: 0.8rem;
   margin-right: 0.8rem;
   flex-shrink: 0;
+  background: var(--secondary-gradient);
+  color: white;
 }
 
 .post-info {
@@ -381,7 +451,7 @@ button {
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .post-meta {
@@ -400,7 +470,7 @@ button {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background: var(--primary-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -411,23 +481,28 @@ button {
 
 .post-time {
   font-size: 0.85rem;
-  color: #999;
+  color: var(--text-muted);
 }
 
 /* ========================================
-   右侧边栏组件
+   右侧边栏组件 - 现代化设计
    ======================================== */
 .widget {
   margin-bottom: 2rem;
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  padding: 1.2rem;
+  transition: var(--transition);
 }
 
 .widget-title {
   font-size: 1rem;
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #007bff;
+  border-bottom: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -441,7 +516,7 @@ button {
   display: flex;
   align-items: center;
   padding: 0.6rem 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .ranking-list li:last-child {
@@ -452,7 +527,7 @@ button {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #007bff;
+  background: var(--primary-gradient);
   color: white;
   display: flex;
   align-items: center;
@@ -473,17 +548,17 @@ button {
 
 .user-name {
   font-weight: 600;
-  color: #333;
+  color: var(--text-color);
   font-size: 0.95rem;
 }
 
 .user-points {
   font-size: 0.85rem;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .hot-items li {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color);
   padding: 0.8rem 0;
 }
 
@@ -499,14 +574,14 @@ button {
 
 .hot-item-title, .group-name {
   font-size: 0.95rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 0.3rem;
   line-height: 1.4;
 }
 
 .hot-item-stats, .group-stats {
   font-size: 0.85rem;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .hot-item-stats span, .group-stats span {
@@ -528,19 +603,20 @@ button {
   display: block;
   text-align: center;
   padding: 0.5rem 0;
-  color: #007bff;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.3s;
+  transition: var(--transition);
 }
 
 .view-more:hover {
-  color: #0056b3;
+  color: var(--primary-color);
+  opacity: 0.8;
 }
 
 .widget-ad {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
+  background: var(--secondary-gradient);
+  border-radius: var(--border-radius);
   padding: 1.5rem;
   text-align: center;
 }
@@ -762,19 +838,19 @@ button {
 }
 
 /* ========================================
-   响应式设计
+   响应式设计 - 增强移动端适配
    ======================================== */
 @media (max-width: 1200px) {
   .main-container {
     grid-template-columns: 200px 1fr 250px;
-    padding: 80px 1.5rem 1.5rem;
+    padding: calc(var(--header-height) + 10px) 1.5rem 1.5rem;
   }
 }
 
 @media (max-width: 992px) {
   .main-container {
     grid-template-columns: 180px 1fr;
-    padding: 80px 1rem 1rem;
+    padding: calc(var(--header-height) + 10px) 1rem 1rem;
   }
   
   .right-sidebar {
@@ -783,6 +859,11 @@ button {
   
   .datetime {
     display: none;
+  }
+  
+  .search-box {
+    max-width: 200px;
+    margin: 0 1rem;
   }
 }
 
@@ -793,7 +874,7 @@ button {
   
   .main-container {
     grid-template-columns: 1fr;
-    padding: 80px 1rem 1rem;
+    padding: calc(var(--header-height) + 10px) 1rem 1rem;
   }
   
   .sidebar {
@@ -805,21 +886,65 @@ button {
   }
   
   .search-box {
-    margin: 0 1rem;
+    margin: 0 0.5rem;
+    max-width: none;
   }
   
   .header-content {
     padding: 0 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .header-right {
+    order: 3;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .search-box {
+    order: 2;
+    margin-top: 0.5rem;
+  }
+  
+  .header-right {
+    margin-top: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .main-container {
-    padding: 80px 0.5rem 0.5rem;
+    padding: calc(var(--header-height) + 10px) 0.5rem 0.5rem;
   }
   
   .modal-content {
     width: 95%;
     margin: 1rem;
+    border-radius: var(--border-radius);
+  }
+  
+  .header-content {
+    padding: 0 0.5rem;
+  }
+  
+  .logo {
+    font-size: 1rem;
+  }
+  
+  .post-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .post-item {
+    padding: 1rem;
+  }
+  
+  .sidebar {
+    padding: 1rem;
+  }
+  
+  .main-content {
+    padding: 1rem;
   }
 }
