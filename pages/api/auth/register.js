@@ -37,10 +37,10 @@ async function register(req, res) {
     }
 
     // 验证用户名格式
-    if (!/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
+    if (!/^[\u4e00-\u9fa5a-zA-Z0-9_]{3,20}$/.test(username)) {
       return res.status(400).json({
         success: false,
-        message: '用户名只能包含字母、数字和下划线，长度3-20位'
+        message: '用户名只能包含中文、字母、数字和下划线，长度3-20位'
       });
     }
 
