@@ -102,48 +102,7 @@ export default function RightSidebar() {
           </ul>
           <a href="#" className="view-more">查看更多 →</a>
         </div>
-
-        {/* 微信公众号 */}
-        <div className="widget widget-wechat">
-          <div className="wechat-content">
-            <div className="wechat-logo">💬</div>
-          <h4 className="wechat-name">新消息</h4>
-          <p className="wechat-desc">关注获取最新新消息资讯</p>
-          </div>
-        </div>
       </aside>
-      
-      <style jsx>{`
-        .widget-wechat {
-          background: linear-gradient(135deg, #07C160 0%, #00A86B 100%);
-          color: white;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-        
-        .wechat-content {
-          padding: 20px;
-          text-align: center;
-        }
-        
-        .wechat-logo {
-          font-size: 48px;
-          margin-bottom: 10px;
-        }
-        
-        .wechat-name {
-          font-size: 18px;
-          font-weight: 600;
-          margin-bottom: 5px;
-          margin-top: 0;
-        }
-        
-        .wechat-desc {
-          font-size: 14px;
-          opacity: 0.9;
-          margin: 0;
-        }
-      `}</style>
     </>
   );
 }
