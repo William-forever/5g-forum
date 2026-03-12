@@ -28,6 +28,18 @@ export default function Home() {
   const [showPostModal, setShowPostModal] = useState(false);
   const [authTab, setAuthTab] = useState('login');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 20; // 每页显示 20 条帖子
+
+  // 计算总页数
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  // 获取当前页的帖子
+  const getCurrentPagePosts = () => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+    return posts.slice(startIndex, endIndex);
+  };
 
   // 检查登录状态
   useEffect(() => {
@@ -58,6 +70,7 @@ export default function Home() {
       );
       setPosts(filtered);
       setActiveCategory('搜索结果');
+      setCurrentPage(1); // 重置到第一页
     }
   }, [search, allPosts]);
 
@@ -72,20 +85,21 @@ export default function Home() {
         const filtered = allPosts.filter(post => post.category === category);
         setPosts(filtered);
       }
+      setCurrentPage(1); // 重置到第一页
     } else if (!search) {
-      setActiveCategory(category || '首页');
+      setActiveCategory('首页');
+      setPosts(allPosts);
+      setCurrentPage(1); // 重置到第一页
     }
   }, [category, allPosts, search]);
 
-  // 监听URL变化，确保category参数变化时重新获取帖子
+  // 监听 URL 变化，确保 category 参数变化时重新获取帖子
   useEffect(() => {
-    if (category) {
-      // 如果allPosts为空，重新获取帖子
-      if (allPosts.length === 0) {
-        fetchPosts();
-      }
+    // 如果 allPosts 为空，重新获取帖子
+    if (allPosts.length === 0) {
+      fetchPosts();
     }
-  }, [category]);
+  }, [category, search]);
 
   // 获取文章列表
   const fetchPosts = async () => {
@@ -177,11 +191,57 @@ export default function Home() {
         />
         
         <PostList 
-          posts={posts}
+          posts={getCurrentPagePosts()}
           user={user}
           category={activeCategory}
           onPostClick={() => setShowPostModal(true)}
         />
+        
+        {/* 翻页组件 */}
+        {totalPages > 1 && (
+          <div className="pagination-container">
+            <div className="pagination">
+              <button 
+                className="page-btn"
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+              >
+                上一页
+              </button>
+              
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNum = index + 1;
+                // 只显示当前页附近的页码
+                if (pageNum === 1 || pageNum === totalPages || 
+                    (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
+                  return (
+                    <button
+                      key={pageNum}
+                      className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
+                      onClick={() => setCurrentPage(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
+                  return <span key={pageNum} className="page-ellipsis">...</span>;
+                }
+                return null;
+              })}
+              
+              <button 
+                className="page-btn"
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+              >
+                下一页
+              </button>
+            </div>
+            <div className="page-info">
+              共 {posts.length} 条帖子，第 {currentPage}/{totalPages} 页
+            </div>
+          </div>
+        )}
         
         <RightSidebar />
       </main>
@@ -207,4 +267,80 @@ export default function Home() {
       )}
     </div>
   );
+}
+
+// 添加样式
+const styles = `
+  .pagination-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px var(--shadow-color);
+    padding: 1.5rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .page-btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  .page-btn:hover:not(:disabled) {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+  }
+  
+  .page-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+  }
+  
+  .page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .page-ellipsis {
+    padding: 0 0.5rem;
+    color: var(--text-muted);
+  }
+  
+  .page-info {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+`;
+
+// 在组件中注入样式
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = styles;
+  if (!document.getElementById('pagination-styles')) {
+    styleSheet.id = 'pagination-styles';
+    document.head.appendChild(styleSheet);
+  }
 }

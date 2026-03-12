@@ -99,11 +99,11 @@ button {
 .main-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: calc(var(--header-height) + 50px) 2rem 2rem;
+  padding: calc(var(--header-height) + 20px) 2rem 2rem;
   display: grid;
   grid-template-columns: 240px 1fr 280px;
   gap: 20px;
-  min-height: calc(100vh - var(--header-height) - 120px);
+  min-height: calc(100vh - var(--header-height) - 80px);
   width: 100%;
   transition: var(--transition);
 }

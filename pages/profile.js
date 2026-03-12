@@ -59,12 +59,18 @@ export default function Profile() {
   };
 
   const fetchNotifications = async () => {
-    // 模拟通知数据
+    // 模拟通知数据，添加 postId 字段
     setNotifications([
-      { id: 1, type: 'like', content: '您的帖子获得了点赞', time: '10 分钟前', read: false },
-      { id: 2, type: 'comment', content: '有人评论了您的帖子', time: '1 小时前', read: false },
-      { id: 3, type: 'like', content: '您的帖子获得了点赞', time: '2 小时前', read: true },
+      { id: 1, type: 'like', content: '您的帖子获得了点赞', time: '10 分钟前', read: false, postId: '1' },
+      { id: 2, type: 'comment', content: '有人评论了您的帖子', time: '1 小时前', read: false, postId: '2' },
+      { id: 3, type: 'like', content: '您的帖子获得了点赞', time: '2 小时前', read: true, postId: '3' },
     ]);
+  };
+
+  const handleNotificationClick = (postId) => {
+    if (postId) {
+      router.push(`/post/${postId}`);
+    }
   };
 
   const handleLogout = () => {
@@ -200,7 +206,7 @@ export default function Profile() {
                 ) : (
                   <div className="notifications-list">
                     {notifications.map(notice => (
-                      <div key={notice.id} className={`notification-item ${!notice.read ? 'unread' : ''}`}>
+                      <div key={notice.id} className={`notification-item ${!notice.read ? 'unread' : ''}`} style={{ cursor: 'pointer' }} onClick={() => handleNotificationClick(notice.postId)}>
                         <div className="notification-icon">
                           {notice.type === 'like' ? '👍' : '💬'}
                         </div>
@@ -259,11 +265,11 @@ export default function Profile() {
         .profile-container {
           max-width: 1400px;
           margin: 0 auto;
-          padding: calc(var(--header-height) + 60px) 2rem 2rem;
+          padding: calc(var(--header-height) + 20px) 2rem 2rem;
           display: grid;
           grid-template-columns: 280px 1fr 280px;
           gap: 20px;
-          min-height: calc(100vh - var(--header-height) - 140px);
+          min-height: calc(100vh - var(--header-height) - 80px);
         }
 
         .profile-sidebar {

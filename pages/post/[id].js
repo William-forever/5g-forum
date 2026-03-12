@@ -127,6 +127,30 @@ export default function PostDetail() {
     }
   };
 
+  const handleBookmark = async () => {
+    if (!user) {
+      setAuthTab('login');
+      setShowAuthModal(true);
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/posts/${id}/bookmark`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('收藏成功');
+      }
+    } catch (error) {
+      console.error('收藏失败:', error);
+    }
+  };
+
   const handleDelete = async () => {
     if (!confirm('确定要删除这个帖子吗？此操作不可恢复。')) {
       return;
@@ -359,6 +383,9 @@ export default function PostDetail() {
               </button>
               <button className="action-btn comment-btn">
                 💬 评论 ({post.comments})
+              </button>
+              <button className="action-btn bookmark-btn" onClick={handleBookmark}>
+                ⭐ 收藏
               </button>
               <button className="action-btn share-btn">
                 📤 分享
