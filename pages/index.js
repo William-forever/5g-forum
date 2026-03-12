@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import PostList from '../components/PostList';
@@ -17,10 +18,12 @@ import PostModal from '../components/PostModal';
  */
 
 export default function Home() {
+  const router = useRouter();
+  const { category } = router.query;
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('首页');
+  const [activeCategory, setActiveCategory] = useState(category || '首页');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
   const [authTab, setAuthTab] = useState('login');
@@ -42,6 +45,30 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  // 监听category参数变化
+  useEffect(() => {
+    if (category) {
+      setActiveCategory(category);
+      // 当category参数变化时，重新过滤帖子
+      if (category === '首页') {
+        setPosts(allPosts);
+      } else {
+        const filtered = allPosts.filter(post => post.category === category);
+        setPosts(filtered);
+      }
+    }
+  }, [category, allPosts]);
+
+  // 监听URL变化，确保category参数变化时重新获取帖子
+  useEffect(() => {
+    if (category) {
+      // 如果allPosts为空，重新获取帖子
+      if (allPosts.length === 0) {
+        fetchPosts();
+      }
+    }
+  }, [category]);
+
   // 获取文章列表
   const fetchPosts = async () => {
     try {
@@ -58,8 +85,15 @@ export default function Home() {
       
       if (data.success) {
         console.log('帖子数据:', data.posts);
-        setAllPosts(data.posts || []);
-        setPosts(data.posts || []);
+        const postsData = data.posts || [];
+        setAllPosts(postsData);
+        // 根据当前URL参数中的category过滤帖子
+        if (category === '首页' || !category) {
+          setPosts(postsData);
+        } else {
+          const filtered = postsData.filter(post => post.category === category);
+          setPosts(filtered);
+        }
       } else {
         console.error('获取帖子失败:', data.message);
       }
@@ -71,11 +105,11 @@ export default function Home() {
   // 处理板块切换
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
+    // 导航到带category参数的首页
     if (category === '首页') {
-      setPosts(allPosts);
+      router.push('/');
     } else {
-      const filtered = allPosts.filter(post => post.category === category);
-      setPosts(filtered);
+      router.push(`/?category=${encodeURIComponent(category)}`);
     }
   };
 
