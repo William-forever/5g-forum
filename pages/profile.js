@@ -418,11 +418,12 @@ export default function Profile() {
         }
 
         .category-tag {
-          padding: 0.2rem 0.6rem;
-          background: var(--secondary-gradient);
+          padding: 0.25rem 0.6rem;
+          background: var(--primary-gradient);
           color: white;
-          border-radius: 4px;
-          font-size: 0.8rem;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          font-weight: 500;
         }
 
         .notifications-list {

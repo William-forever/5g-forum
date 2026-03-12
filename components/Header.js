@@ -69,8 +69,7 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
           </a>
 
           <div className="search-box">
-            <form onSubmit={handleSearch} style={{ display: 'flex', width: '100%' }}>
-              <button type="submit" className="search-button" aria-label="搜索">🔍</button>
+            <form onSubmit={handleSearch} className="search-form">
               <input
                 type="text"
                 value={searchQuery}
@@ -78,8 +77,10 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
                 placeholder="搜索帖子、用户、话题..."
                 autoComplete="off"
                 aria-label="搜索"
-                style={{ flex: 1 }}
               />
+              <button type="submit" className="search-btn">
+                🔍
+              </button>
             </form>
           </div>
 
@@ -121,7 +122,7 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
         .forum-motto-banner {
           background: var(--secondary-gradient);
           color: white;
-          padding: 12px 0;
+          padding: 8px 0;
           margin-top: var(--header-height);
           text-align: center;
           box-shadow: 0 2px 10px var(--shadow-color);
@@ -134,15 +135,15 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
+          gap: 8px;
         }
         
         .motto-icon {
-          font-size: 18px;
+          font-size: 16px;
         }
         
         .motto-text {
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 500;
           letter-spacing: 0.5px;
         }
@@ -184,6 +185,74 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
           font-weight: bold;
           font-size: 14px;
           margin-right: 8px;
+        }
+        
+        .header-right {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        
+        .auth-buttons {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .search-box {
+          flex: 1;
+          max-width: 500px;
+          margin: 0 2rem;
+        }
+        
+        .search-form {
+          display: flex;
+          align-items: center;
+          background: rgba(255,255,255,0.95);
+          border-radius: 25px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+          transition: var(--transition);
+        }
+        
+        .search-form:focus-within {
+          box-shadow: 0 4px 20px rgba(0,123,255,0.3);
+          transform: translateY(-1px);
+        }
+        
+        .search-form input {
+          flex: 1;
+          border: none;
+          outline: none;
+          padding: 0.7rem 1.2rem 0.7rem 1.5rem;
+          border-radius: 25px;
+          font-size: 0.95rem;
+          background: transparent;
+          color: var(--text-color);
+        }
+        
+        .search-btn {
+          background: var(--primary-gradient);
+          border: none;
+          border-radius: 50%;
+          width: 38px;
+          height: 38px;
+          margin: 3px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: var(--transition);
+          font-size: 16px;
+          flex-shrink: 0;
+        }
+        
+        .search-btn:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 15px rgba(0,123,255,0.4);
+        }
+        
+        .search-button {
+          display: none;
         }
       `}</style>
     </>

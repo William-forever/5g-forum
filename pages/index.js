@@ -19,7 +19,7 @@ import PostModal from '../components/PostModal';
 
 export default function Home() {
   const router = useRouter();
-  const { category } = router.query;
+  const { category, search } = router.query;
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [allPosts, setAllPosts] = useState([]);
@@ -27,6 +27,7 @@ export default function Home() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
   const [authTab, setAuthTab] = useState('login');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // 检查登录状态
   useEffect(() => {
@@ -45,19 +46,36 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  // 监听category参数变化
+  // 监听搜索参数变化
   useEffect(() => {
-    if (category) {
+    if (search) {
+      setSearchQuery(search);
+      // 搜索逻辑：在标题和内容中查找
+      const filtered = allPosts.filter(post => 
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.content.toLowerCase().includes(search.toLowerCase()) ||
+        post.author.toLowerCase().includes(search.toLowerCase())
+      );
+      setPosts(filtered);
+      setActiveCategory('搜索结果');
+    }
+  }, [search, allPosts]);
+
+  // 监听 category 参数变化
+  useEffect(() => {
+    if (category && !search) {
       setActiveCategory(category);
-      // 当category参数变化时，重新过滤帖子
+      // 当 category 参数变化时，重新过滤帖子
       if (category === '首页') {
         setPosts(allPosts);
       } else {
         const filtered = allPosts.filter(post => post.category === category);
         setPosts(filtered);
       }
+    } else if (!search) {
+      setActiveCategory(category || '首页');
     }
-  }, [category, allPosts]);
+  }, [category, allPosts, search]);
 
   // 监听URL变化，确保category参数变化时重新获取帖子
   useEffect(() => {

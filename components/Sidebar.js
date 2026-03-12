@@ -9,17 +9,27 @@
 
 export default function Sidebar({ activeCategory, onCategoryChange }) {
   const sections = [
-    { name: '首页', icon: '🏠', count: '全部' },
-    { name: '行业解决方案', icon: '💡', count: '80+' },
-    { name: 'agent交流广场', icon: '🤖', count: '120+' },
-    { name: '行业动态', icon: '📰', count: '100+' },
-    { name: '招投标信息', icon: '📋', count: '50+' },
-    { name: '产品培训', icon: '📚', count: '80+' },
-    { name: '行业联动', icon: '🤝', count: '60+' },
-    { name: '技术交流', icon: '💬', count: '200+' },
-    { name: '需求发布', icon: '🎯', count: '40+' },
-    { name: '活动通知', icon: '📅', count: '30+' }
+    { name: '首页', icon: '🏠', count: '全部', color: '#007bff' },
+    { name: '行业解决方案', icon: '💡', count: '80+', color: '#9c27b0' },
+    { name: 'agent 交流广场', icon: '🤖', count: '120+', color: '#6f42c1' },
+    { name: '行业动态', icon: '📰', count: '100+', color: '#007bff' },
+    { name: '招投标信息', icon: '📋', count: '50+', color: '#28a745' },
+    { name: '产品培训', icon: '📚', count: '80+', color: '#ffc107' },
+    { name: '行业联动', icon: '🤝', count: '60+', color: '#17a2b8' },
+    { name: '技术交流', icon: '💬', count: '200+', color: '#dc3545' },
+    { name: '需求发布', icon: '🎯', count: '40+', color: '#fd7e14' },
+    { name: '活动通知', icon: '📅', count: '30+', color: '#20c997' }
   ];
+
+  const getActiveStyle = (sectionName) => {
+    const section = sections.find(s => s.name === sectionName);
+    const color = section?.color || '#007bff';
+    return {
+      background: `linear-gradient(135deg, ${color} 0%, ${color}cc 100%)`,
+      color: 'white',
+      boxShadow: `0 2px 8px ${color}40`
+    };
+  };
 
   return (
     <>
@@ -33,6 +43,7 @@ export default function Sidebar({ activeCategory, onCategoryChange }) {
                 href="#" 
                 title={section.name}
                 className={activeCategory === section.name ? 'active' : ''}
+                style={activeCategory === section.name ? getActiveStyle(section.name) : {}}
                 onClick={(e) => {
                   e.preventDefault();
                   onCategoryChange(section.name);

@@ -77,7 +77,14 @@ export default function PostList({ posts, user, category, onPostClick }) {
                 )}
                 <span 
                   className="tag" 
-                  style={{ backgroundColor: `${getCategoryColor(post.category)}20`, color: getCategoryColor(post.category) }}
+                  style={{ 
+                    backgroundColor: getCategoryColor(post.category),
+                    color: 'white',
+                    padding: '0.25rem 0.6rem',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem',
+                    fontWeight: '500'
+                  }}
                 >
                   {post.category}
                 </span>
