@@ -135,16 +135,28 @@ export default function PostDetail() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`/api/posts/${id}/bookmark`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
+      // 保存到本地存储
+      const savedFavorites = localStorage.getItem('favorites');
+      let favoritePostIds = savedFavorites ? JSON.parse(savedFavorites) : [];
+      
+      if (!favoritePostIds.includes(id)) {
+        favoritePostIds.push(id);
+        localStorage.setItem('favorites', JSON.stringify(favoritePostIds));
+        
+        // 调用API
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/posts/${id}/bookmark`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (data.success) {
+          alert('收藏成功');
         }
-      });
-      const data = await response.json();
-      if (data.success) {
-        alert('收藏成功');
+      } else {
+        alert('该帖子已经收藏过了');
       }
     } catch (error) {
       console.error('收藏失败:', error);

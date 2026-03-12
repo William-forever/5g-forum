@@ -22,6 +22,7 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState('posts');
   const [myPosts, setMyPosts] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   // 检查登录状态
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function Profile() {
           setUser(JSON.parse(userData));
           fetchMyPosts(userData.username);
           fetchNotifications();
+          fetchFavorites();
         } catch (e) {
           console.error('解析用户数据失败:', e);
           router.push('/');
@@ -71,6 +73,27 @@ export default function Profile() {
     ];
     
     setNotifications(notificationsData);
+  };
+
+  const fetchFavorites = async () => {
+    try {
+      // 从本地存储获取收藏的帖子ID
+      const savedFavorites = localStorage.getItem('favorites');
+      if (savedFavorites) {
+        const favoritePostIds = JSON.parse(savedFavorites);
+        
+        // 获取所有帖子，然后过滤出收藏的帖子
+        const response = await fetch('/api/posts?limit=1000');
+        const data = await response.json();
+        if (data.success) {
+          const allPosts = data.posts || [];
+          const favoritePosts = allPosts.filter(post => favoritePostIds.includes(post.id));
+          setFavorites(favoritePosts);
+        }
+      }
+    } catch (error) {
+      console.error('获取收藏失败:', error);
+    }
   };
 
   const handleNotificationClick = (postId) => {
@@ -196,9 +219,25 @@ export default function Profile() {
             {activeTab === 'favorites' && (
               <div className="profile-section">
                 <h2 className="section-title">⭐ 我的收藏</h2>
-                <div className="empty-state">
-                  <p>暂无收藏</p>
-                </div>
+                {favorites.length === 0 ? (
+                  <div className="empty-state">
+                    <p>暂无收藏</p>
+                  </div>
+                ) : (
+                  <div className="posts-list">
+                    {favorites.map(post => (
+                      <div key={post.id} className="post-card" onClick={() => router.push(`/post/${post.id}`)}>
+                        <h3 className="post-title">{post.title}</h3>
+                        <div className="post-meta">
+                          <span className="category-tag">{post.category}</span>
+                          <span>👁️ {post.views}</span>
+                          <span>💬 {post.comments}</span>
+                          <span>👍 {post.likes}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -273,9 +312,11 @@ export default function Profile() {
           margin: 0 auto;
           padding: calc(var(--header-height) + 20px) 2rem 2rem;
           display: grid;
-          grid-template-columns: 280px 1fr 280px;
+          grid-template-columns: 240px 1fr 280px;
           gap: 20px;
           min-height: calc(100vh - var(--header-height) - 80px);
+          width: 100%;
+          transition: var(--transition);
         }
 
         .profile-sidebar {
