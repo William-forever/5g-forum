@@ -65,7 +65,7 @@ export default function Sidebar({ activeCategory, onCategoryChange }) {
         <div className="widget widget-wechat">
           <div className="wechat-content">
             <div className="wechat-logo">
-              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=QR code with 5G logo in the center, black and white, clear, professional&image_size=square" alt="新5G消息公众号" style={{ width: '120px', height: '120px' }} />
+              <img src="/images/new-5G-RCS.png" alt="新5G消息公众号" style={{ width: '120px', height: '120px' }} />
             </div>
             <h4 className="wechat-name">新5G消息公众号</h4>
             <p className="wechat-desc">关注获取最新5G消息资讯</p>
