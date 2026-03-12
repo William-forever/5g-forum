@@ -59,16 +59,22 @@ export default function Profile() {
   };
 
   const fetchNotifications = async () => {
-    // 模拟通知数据，添加 postId 字段
-    setNotifications([
-      { id: 1, type: 'like', content: '您的帖子获得了点赞', time: '10 分钟前', read: false, postId: '1' },
-      { id: 2, type: 'comment', content: '有人评论了您的帖子', time: '1 小时前', read: false, postId: '2' },
-      { id: 3, type: 'like', content: '您的帖子获得了点赞', time: '2 小时前', read: true, postId: '3' },
-    ]);
+    // 模拟通知数据，使用实际的帖子ID（如果有）
+    // 从我的帖子中获取实际的帖子ID
+    const actualPostIds = myPosts.map(post => post.id);
+    
+    // 生成通知数据，使用实际的帖子ID或空值
+    const notificationsData = [
+      { id: 1, type: 'like', content: '您的帖子获得了点赞', time: '10 分钟前', read: false, postId: actualPostIds[0] || null },
+      { id: 2, type: 'comment', content: '有人评论了您的帖子', time: '1 小时前', read: false, postId: actualPostIds[1] || null },
+      { id: 3, type: 'like', content: '您的帖子获得了点赞', time: '2 小时前', read: true, postId: actualPostIds[2] || null },
+    ];
+    
+    setNotifications(notificationsData);
   };
 
   const handleNotificationClick = (postId) => {
-    if (postId) {
+    if (postId && typeof postId === 'string' && postId.trim() !== '') {
       router.push(`/post/${postId}`);
     }
   };

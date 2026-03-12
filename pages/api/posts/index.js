@@ -44,7 +44,12 @@ async function getPosts(req, res) {
 
   } catch (error) {
     console.error('获取帖子列表错误:', error);
-    res.status(500).json({ success: false, message: '获取帖子列表失败' });
+    // 提供更详细的错误信息
+    res.status(500).json({
+      success: false, 
+      message: '获取帖子列表失败',
+      error: process.env.NODE_ENV === 'development' ? error.message : '服务器内部错误'
+    });
   }
 }
 

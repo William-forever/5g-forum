@@ -108,6 +108,12 @@ button {
   transition: var(--transition);
 }
 
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /* ========================================
    头部导航 - 科技感增强
    ======================================== */

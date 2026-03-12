@@ -82,7 +82,12 @@ export default function Home() {
       if (category === '首页') {
         setPosts(allPosts);
       } else {
-        const filtered = allPosts.filter(post => post.category === category);
+        // 处理板块名称空格问题
+        const categoryWithoutSpace = category.replace(/\s/g, '');
+        const filtered = allPosts.filter(post => 
+          post.category === category || 
+          post.category.replace(/\s/g, '') === categoryWithoutSpace
+        );
         setPosts(filtered);
       }
       setCurrentPage(1); // 重置到第一页
@@ -196,54 +201,56 @@ export default function Home() {
           onCategoryChange={handleCategoryChange}
         />
         
-        <PostList 
-          posts={getCurrentPagePosts()}
-          user={user}
-          category={activeCategory}
-          onPostClick={() => setShowPostModal(true)}
-        />
-        
-        {/* 翻页组件 */}
-        <div className="pagination-container">
-          <div className="pagination">
-            <button 
-              className="page-btn"
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
-            >
-              上一页
-            </button>
-            
-            {[...Array(totalPages)].map((_, index) => {
-              const pageNum = index + 1;
-              // 只显示当前页附近的页码
-              if (pageNum === 1 || pageNum === totalPages || 
-                  (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
-                return (
-                  <button
-                    key={pageNum}
-                    className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
-                    onClick={() => setCurrentPage(pageNum)}
-                  >
-                    {pageNum}
-                  </button>
-                );
-              } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
-                return <span key={pageNum} className="page-ellipsis">...</span>;
-              }
-              return null;
-            })}
-            
-            <button 
-              className="page-btn"
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
-            >
-              下一页
-            </button>
-          </div>
-          <div className="page-info">
-            共 {posts.length} 条帖子，第 {currentPage}/{totalPages} 页
+        <div className="content-wrapper">
+          <PostList 
+            posts={getCurrentPagePosts()}
+            user={user}
+            category={activeCategory}
+            onPostClick={() => setShowPostModal(true)}
+          />
+          
+          {/* 翻页组件 */}
+          <div className="pagination-container">
+            <div className="pagination">
+              <button 
+                className="page-btn"
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+              >
+                上一页
+              </button>
+              
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNum = index + 1;
+                // 只显示当前页附近的页码
+                if (pageNum === 1 || pageNum === totalPages || 
+                    (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
+                  return (
+                    <button
+                      key={pageNum}
+                      className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
+                      onClick={() => setCurrentPage(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
+                  return <span key={pageNum} className="page-ellipsis">...</span>;
+                }
+                return null;
+              })}
+              
+              <button 
+                className="page-btn"
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+              >
+                下一页
+              </button>
+            </div>
+            <div className="page-info">
+              共 {posts.length} 条帖子，第 {currentPage}/{totalPages} 页
+            </div>
           </div>
         </div>
         
