@@ -105,7 +105,8 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       console.log('开始获取帖子列表...');
-      const response = await fetch('/api/posts');
+      // 获取所有帖子，不分页
+      const response = await fetch('/api/posts?limit=1000');
       console.log('API响应状态:', response.status);
       
       if (!response.ok) {
@@ -123,7 +124,12 @@ export default function Home() {
         if (category === '首页' || !category) {
           setPosts(postsData);
         } else {
-          const filtered = postsData.filter(post => post.category === category);
+          // 处理板块名称空格问题
+          const categoryWithoutSpace = category.replace(/\s/g, '');
+          const filtered = postsData.filter(post => 
+            post.category === category || 
+            post.category.replace(/\s/g, '') === categoryWithoutSpace
+          );
           setPosts(filtered);
         }
       } else {
@@ -198,50 +204,48 @@ export default function Home() {
         />
         
         {/* 翻页组件 */}
-        {totalPages > 1 && (
-          <div className="pagination-container">
-            <div className="pagination">
-              <button 
-                className="page-btn"
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                disabled={currentPage === 1}
-              >
-                上一页
-              </button>
-              
-              {[...Array(totalPages)].map((_, index) => {
-                const pageNum = index + 1;
-                // 只显示当前页附近的页码
-                if (pageNum === 1 || pageNum === totalPages || 
-                    (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
-                  return (
-                    <button
-                      key={pageNum}
-                      className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
-                      onClick={() => setCurrentPage(pageNum)}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
-                  return <span key={pageNum} className="page-ellipsis">...</span>;
-                }
-                return null;
-              })}
-              
-              <button 
-                className="page-btn"
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-              >
-                下一页
-              </button>
-            </div>
-            <div className="page-info">
-              共 {posts.length} 条帖子，第 {currentPage}/{totalPages} 页
-            </div>
+        <div className="pagination-container">
+          <div className="pagination">
+            <button 
+              className="page-btn"
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+            >
+              上一页
+            </button>
+            
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNum = index + 1;
+              // 只显示当前页附近的页码
+              if (pageNum === 1 || pageNum === totalPages || 
+                  (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
+                return (
+                  <button
+                    key={pageNum}
+                    className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
+                    onClick={() => setCurrentPage(pageNum)}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
+                return <span key={pageNum} className="page-ellipsis">...</span>;
+              }
+              return null;
+            })}
+            
+            <button 
+              className="page-btn"
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+            >
+              下一页
+            </button>
           </div>
-        )}
+          <div className="page-info">
+            共 {posts.length} 条帖子，第 {currentPage}/{totalPages} 页
+          </div>
+        </div>
         
         <RightSidebar />
       </main>
