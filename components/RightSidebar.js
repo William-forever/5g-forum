@@ -7,14 +7,72 @@
  * @version 1.0.0
  */
 
+import React, { useState, useEffect } from 'react';
+
 export default function RightSidebar() {
-  const rankings = [
-    { rank: 1, name: '李明', points: '12,580' },
-    { rank: 2, name: '陈强', points: '11,230' },
-    { rank: 3, name: '赵丽', points: '10,890' },
-    { rank: 4, name: '张伟', points: '9,650' },
-    { rank: 5, name: '王芳', points: '8,920' }
-  ];
+  const [rankings, setRankings] = useState([
+    { rank: 1, name: '加载中...', points: '0' },
+    { rank: 2, name: '加载中...', points: '0' },
+    { rank: 3, name: '加载中...', points: '0' },
+    { rank: 4, name: '加载中...', points: '0' },
+    { rank: 5, name: '加载中...', points: '0' }
+  ]);
+
+  useEffect(() => {
+    // 获取实际的用户积分数据
+    const fetchUserRankings = async () => {
+      try {
+        // 获取所有帖子
+        const postsResponse = await fetch('/api/posts?limit=1000');
+        const postsData = await postsResponse.json();
+        
+        if (postsData.success) {
+          const posts = postsData.posts || [];
+          
+          // 计算每个用户的积分
+          const userPoints = {};
+          
+          // 积分规则：发帖 +10，评论 +2，点赞 +1
+          posts.forEach(post => {
+            // 发帖积分
+            if (post.author) {
+              userPoints[post.author] = (userPoints[post.author] || 0) + 10;
+              // 点赞积分
+              userPoints[post.author] += (post.likes || 0) * 1;
+              // 评论积分
+              userPoints[post.author] += (post.comments || 0) * 2;
+            }
+          });
+          
+          // 转换为排行榜格式并排序
+          const rankingList = Object.entries(userPoints)
+            .map(([name, points]) => ({ name, points }))
+            .sort((a, b) => b.points - a.points)
+            .slice(0, 5)
+            .map((item, index) => ({
+              rank: index + 1,
+              name: item.name,
+              points: item.points.toLocaleString()
+            }));
+          
+          // 如果没有足够的用户，填充空数据
+          while (rankingList.length < 5) {
+            rankingList.push({
+              rank: rankingList.length + 1,
+              name: '暂无数据',
+              points: '0'
+            });
+          }
+          
+          setRankings(rankingList);
+        }
+      } catch (error) {
+        console.error('获取积分排行榜失败:', error);
+      }
+    };
+
+    fetchUserRankings();
+  }, []);
 
   const hotWorks = [
     { title: '新消息营销自动化系统设计', likes: 238, comments: 156, views: '5.6k' },

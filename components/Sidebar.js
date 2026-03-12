@@ -7,19 +7,61 @@
  * @version 1.1.0
  */
 
+import React, { useState, useEffect } from 'react';
+
 export default function Sidebar({ activeCategory, onCategoryChange }) {
-  const sections = [
+  const [sections, setSections] = useState([
     { name: '首页', icon: '🏠', count: '全部', color: '#007bff' },
-    { name: '行业解决方案', icon: '💡', count: '80+', color: '#9c27b0' },
-    { name: 'agent 交流广场', icon: '🤖', count: '120+', color: '#6f42c1' },
-    { name: '行业动态', icon: '📰', count: '100+', color: '#007bff' },
-    { name: '招投标信息', icon: '📋', count: '50+', color: '#28a745' },
-    { name: '产品培训', icon: '📚', count: '80+', color: '#ffc107' },
-    { name: '行业联动', icon: '🤝', count: '60+', color: '#17a2b8' },
-    { name: '技术交流', icon: '💬', count: '200+', color: '#dc3545' },
-    { name: '需求发布', icon: '🎯', count: '40+', color: '#fd7e14' },
-    { name: '活动通知', icon: '📅', count: '30+', color: '#20c997' }
-  ];
+    { name: '行业解决方案', icon: '💡', count: '0', color: '#9c27b0' },
+    { name: 'agent 交流广场', icon: '🤖', count: '0', color: '#6f42c1' },
+    { name: '行业动态', icon: '📰', count: '0', color: '#007bff' },
+    { name: '招投标信息', icon: '📋', count: '0', color: '#28a745' },
+    { name: '产品培训', icon: '📚', count: '0', color: '#ffc107' },
+    { name: '行业联动', icon: '🤝', count: '0', color: '#17a2b8' },
+    { name: '技术交流', icon: '💬', count: '0', color: '#dc3545' },
+    { name: '需求发布', icon: '🎯', count: '0', color: '#fd7e14' },
+    { name: '活动通知', icon: '📅', count: '0', color: '#20c997' }
+  ]);
+
+  useEffect(() => {
+    // 获取实际的帖子数量
+    const fetchPostCounts = async () => {
+      try {
+        const response = await fetch('/api/posts?limit=1000');
+        const data = await response.json();
+        if (data.success) {
+          const posts = data.posts || [];
+          
+          // 计算每个板块的帖子数量
+          const categoryCounts = {};
+          posts.forEach(post => {
+            const category = post.category;
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+          });
+          
+          // 更新板块的帖子数量
+          setSections(prevSections => prevSections.map(section => {
+            if (section.name === '首页') {
+              return { ...section, count: posts.length };
+            }
+            // 处理板块名称空格问题
+            const sectionNameWithoutSpace = section.name.replace(/\s/g, '');
+            const matchingCategory = Object.keys(categoryCounts).find(cat => 
+              cat === section.name || cat.replace(/\s/g, '') === sectionNameWithoutSpace
+            );
+            return {
+              ...section,
+              count: matchingCategory ? categoryCounts[matchingCategory] : 0
+            };
+          }));
+        }
+      } catch (error) {
+        console.error('获取帖子数量失败:', error);
+      }
+    };
+
+    fetchPostCounts();
+  }, []);
 
   const getActiveStyle = (sectionName) => {
     const section = sections.find(s => s.name === sectionName);

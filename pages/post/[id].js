@@ -26,6 +26,8 @@ export default function PostDetail() {
   const [authTab, setAuthTab] = useState('login');
   const [commentContent, setCommentContent] = useState('');
   const [comments, setComments] = useState([]);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
+  const [showShareModal, setShowShareModal] = useState(false);
   
   // 处理板块切换
   const handleCategoryChange = (category) => {
@@ -77,6 +79,15 @@ export default function PostDetail() {
           createdAt: comment.created_at
         }));
         setComments(commentsWithMappedFields);
+        
+        // 计算收藏人数（模拟）
+        const savedFavorites = localStorage.getItem('favorites');
+        if (savedFavorites) {
+          const favoritePostIds = JSON.parse(savedFavorites);
+          // 模拟收藏人数，实际项目中应该从数据库获取
+          const count = favoritePostIds.includes(id) ? Math.floor(Math.random() * 10) + 1 : Math.floor(Math.random() * 10);
+          setBookmarkCount(count);
+        }
       } else {
         alert('帖子不存在或已被删除');
         router.push('/');
@@ -161,6 +172,23 @@ export default function PostDetail() {
     } catch (error) {
       console.error('收藏失败:', error);
     }
+  };
+
+  const handleShare = () => {
+    setShowShareModal(true);
+  };
+
+  const copyShareLink = () => {
+    const shareLink = `${window.location.origin}/post/${id}`;
+    navigator.clipboard.writeText(shareLink)
+      .then(() => {
+        alert('链接已复制到剪贴板');
+        setShowShareModal(false);
+      })
+      .catch(err => {
+        console.error('复制失败:', err);
+        alert('复制失败，请手动复制链接');
+      });
   };
 
   const handleDelete = async () => {
@@ -397,9 +425,9 @@ export default function PostDetail() {
                 💬 评论 ({post.comments})
               </button>
               <button className="action-btn bookmark-btn" onClick={handleBookmark}>
-                ⭐ 收藏
+                ⭐ 收藏 ({bookmarkCount})
               </button>
-              <button className="action-btn share-btn">
+              <button className="action-btn share-btn" onClick={handleShare}>
                 📤 分享
               </button>
               {user && post && user.username === post.author && (
@@ -463,6 +491,54 @@ export default function PostDetail() {
             onClose={() => setShowAuthModal(false)}
             onLoginSuccess={handleLoginSuccess}
           />
+        )}
+        
+        {/* 分享模态框 */}
+        {showShareModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h2>分享帖子</h2>
+                <button className="close-btn" onClick={() => setShowShareModal(false)}>×</button>
+              </div>
+              <div className="modal-body" style={{ padding: '2rem' }}>
+                <p style={{ marginBottom: '1rem' }}>复制以下链接分享给朋友：</p>
+                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
+                  <input 
+                    type="text" 
+                    value={`${window.location.origin}/post/${id}`} 
+                    readOnly 
+                    style={{
+                      flex: 1,
+                      padding: '0.8rem',
+                      border: '1px solid var(--border-color)',
+                      borderRadius: '4px',
+                      fontSize: '0.95rem'
+                    }}
+                  />
+                  <button 
+                    onClick={copyShareLink}
+                    style={{
+                      padding: '0.8rem 1.5rem',
+                      background: 'var(--primary-gradient)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: '600'
+                    }}
+                  >
+                    复制
+                  </button>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                    分享此帖子给你的朋友，一起讨论吧！
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
