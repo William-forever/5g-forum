@@ -110,43 +110,7 @@ export default function Header({ user, onLoginClick, onRegisterClick, onLogout }
         </div>
       </header>
       
-      {/* 论坛主题宣言 */}
-      <div className="forum-motto-banner">
-        <div className="motto-content">
-          <span className="motto-icon">🎯</span>
-          <span className="motto-text">致力于打造新消息领域的信息发布枢纽、AI Agent 交流中心、生态合作桥梁</span>
-        </div>
-      </div>
-      
       <style jsx>{`
-        .forum-motto-banner {
-          background: var(--secondary-gradient);
-          color: white;
-          padding: 8px 0;
-          margin-top: var(--header-height);
-          text-align: center;
-          box-shadow: 0 2px 10px var(--shadow-color);
-        }
-        
-        .motto-content {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 2rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-        }
-        
-        .motto-icon {
-          font-size: 16px;
-        }
-        
-        .motto-text {
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.5px;
-        }
         
         .theme-toggle {
           background: rgba(255,255,255,0.2);

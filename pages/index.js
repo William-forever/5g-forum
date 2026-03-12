@@ -29,7 +29,7 @@ export default function Home() {
   const [authTab, setAuthTab] = useState('login');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 20; // 每页显示 20 条帖子
+  const postsPerPage = 10; // 每页显示 10 条帖子
 
   // 计算总页数
   const totalPages = Math.ceil(posts.length / postsPerPage);
