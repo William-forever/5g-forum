@@ -5,13 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cron": "node scripts/start-cron.js",
+    "cron:test": "CRON_TEST_MODE=true node scripts/start-cron.js",
+    "update-rankings": "node scripts/update-rankings-once.js",
+    "test:points": "node scripts/test-points-system.js",
+    "test:all": "npm run update-rankings && npm run test:points"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "next": "^14.0.0",
+    "node-cron": "^4.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
