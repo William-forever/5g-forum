@@ -8,8 +8,40 @@
  */
 
 export default function PostList({ posts, user, category, onPostClick }) {
-  const formatTime = (dateString) => {
-    const date = new Date(dateString);
+  const formatTime = (dateInput) => {
+    if (!dateInput) return '未知时间';
+    
+    // 尝试多种时间格式解析
+    let date;
+    
+    // 处理对象类型的输入
+    if (typeof dateInput === 'object' && dateInput !== null) {
+      // 尝试获取对象中的时间字段
+      const timeValue = dateInput.time || dateInput.created_at || dateInput.createdAt;
+      if (timeValue) {
+        return formatTime(timeValue);
+      }
+    }
+    
+    if (typeof dateInput === 'string') {
+      // 处理 ISO 格式的时间字符串
+      date = new Date(dateInput);
+      
+      // 如果解析失败，尝试其他格式
+      if (isNaN(date.getTime())) {
+        // 处理 YYYY-MM-DD HH:MM:SS 格式
+        const dateTimeMatch = dateInput.match(/(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})/);
+        if (dateTimeMatch) {
+          date = new Date(`${dateTimeMatch[1]}T${dateTimeMatch[2]}`);
+        }
+      }
+    } else if (typeof dateInput === 'number') {
+      // 处理时间戳
+      date = new Date(dateInput);
+    }
+    
+    if (!date || isNaN(date.getTime())) return '未知时间';
+    
     const now = new Date();
     const diff = now - date;
     

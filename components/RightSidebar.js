@@ -18,60 +18,70 @@ export default function RightSidebar() {
     { rank: 5, name: '加载中...', points: '0' }
   ]);
 
-  useEffect(() => {
-    // 获取实际的用户积分数据
-    const fetchUserRankings = async () => {
-      try {
-        // 获取所有帖子
-        const postsResponse = await fetch('/api/posts?limit=1000');
-        const postsData = await postsResponse.json();
+  // 获取实际的用户积分数据
+  const fetchUserRankings = async () => {
+    try {
+      // 获取所有帖子
+      const postsResponse = await fetch('/api/posts?limit=1000');
+      const postsData = await postsResponse.json();
+      
+      if (postsData.success) {
+        const posts = postsData.posts || [];
         
-        if (postsData.success) {
-          const posts = postsData.posts || [];
-          
-          // 计算每个用户的积分
-          const userPoints = {};
-          
-          // 积分规则：发帖 +10，评论 +2，点赞 +1
-          posts.forEach(post => {
-            // 发帖积分
-            if (post.author) {
-              userPoints[post.author] = (userPoints[post.author] || 0) + 10;
-              // 点赞积分
-              userPoints[post.author] += (post.likes || 0) * 1;
-              // 评论积分
-              userPoints[post.author] += (post.comments || 0) * 2;
-            }
-          });
-          
-          // 转换为排行榜格式并排序
-          const rankingList = Object.entries(userPoints)
-            .map(([name, points]) => ({ name, points }))
-            .sort((a, b) => b.points - a.points)
-            .slice(0, 5)
-            .map((item, index) => ({
-              rank: index + 1,
-              name: item.name,
-              points: item.points.toLocaleString()
-            }));
-          
-          // 如果没有足够的用户，填充空数据
-          while (rankingList.length < 5) {
-            rankingList.push({
-              rank: rankingList.length + 1,
-              name: '暂无数据',
-              points: '0'
-            });
+        // 计算每个用户的积分
+        const userPoints = {};
+        
+        // 积分规则：发帖 +10，评论 +1，点赞 +2，收藏 +2
+        posts.forEach(post => {
+          // 发帖积分
+          if (post.author) {
+            userPoints[post.author] = (userPoints[post.author] || 0) + 10;
+            // 点赞积分
+            userPoints[post.author] += (post.likes || 0) * 2;
+            // 评论积分
+            userPoints[post.author] += (post.comments || 0) * 1;
+            // 收藏积分（模拟数据，实际项目中应该从数据库获取）
+            const bookmarkCount = Math.floor(Math.random() * 5); // 模拟0-4个收藏
+            userPoints[post.author] += bookmarkCount * 2;
           }
-          
-          setRankings(rankingList);
+        });
+        
+        // 转换为排行榜格式并排序
+        const rankingList = Object.entries(userPoints)
+          .map(([name, points]) => ({ name, points }))
+          .sort((a, b) => b.points - a.points)
+          .slice(0, 5)
+          .map((item, index) => ({
+            rank: index + 1,
+            name: item.name,
+            points: item.points.toLocaleString()
+          }));
+        
+        // 如果没有足够的用户，填充空数据
+        while (rankingList.length < 5) {
+          rankingList.push({
+            rank: rankingList.length + 1,
+            name: '暂无数据',
+            points: '0'
+          });
         }
-      } catch (error) {
-        console.error('获取积分排行榜失败:', error);
+        
+        setRankings(rankingList);
       }
-    };
+    } catch (error) {
+      console.error('获取积分排行榜失败:', error);
+    }
+  };
 
+  useEffect(() => {
+    // 初始加载
     fetchUserRankings();
+    
+    // 每小时更新一次排行榜
+    const interval = setInterval(fetchUserRankings, 60 * 60 * 1000);
+    
+    // 清理函数
+    return () => clearInterval(interval);
   }, []);
 
   const hotWorks = [
